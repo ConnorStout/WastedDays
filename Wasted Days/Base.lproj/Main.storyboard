@@ -78,22 +78,23 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="60.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QKL-W8-tKg">
-                                                    <rect key="frame" x="8" y="7" width="584" height="44"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QKL-W8-tKg">
+                                                    <rect key="frame" x="8" y="7" width="574" height="45"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8r-Fw-ll8">
-                                                            <rect key="frame" x="0.0" y="0.0" width="70" height="44"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="70" height="45"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Task" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ICo-Hb-gyv">
-                                                            <rect key="frame" x="70" y="0.0" width="470" height="44"/>
+                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Task" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ICo-Hb-gyv">
+                                                            <rect key="frame" x="80" y="0.0" width="440" height="45"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UE2-Rk-Jvg">
-                                                            <rect key="frame" x="540" y="0.0" width="44" height="44"/>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UE2-Rk-Jvg">
+                                                            <rect key="frame" x="530" y="0.0" width="45" height="45"/>
+                                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="UE2-Rk-Jvg" secondAttribute="height" multiplier="1:1" id="Ug5-cp-S63"/>
                                                             </constraints>
@@ -101,14 +102,21 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="N8r-Fw-ll8" firstAttribute="leading" secondItem="QKL-W8-tKg" secondAttribute="leading" constant="15" id="9Tf-Bg-Wfp"/>
+                                                        <constraint firstItem="UE2-Rk-Jvg" firstAttribute="centerY" secondItem="QKL-W8-tKg" secondAttribute="centerY" id="JIp-c3-lUc"/>
+                                                        <constraint firstAttribute="trailing" secondItem="UE2-Rk-Jvg" secondAttribute="trailing" constant="20" id="gph-UE-xLa"/>
                                                         <constraint firstAttribute="trailing" secondItem="UE2-Rk-Jvg" secondAttribute="trailing" constant="15" id="onU-jm-t09"/>
                                                     </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="gph-UE-xLa"/>
+                                                            <exclude reference="onU-jm-t09"/>
+                                                        </mask>
+                                                    </variation>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="QKL-W8-tKg" firstAttribute="top" secondItem="4FR-e1-Dda" secondAttribute="topMargin" id="1eg-On-hif"/>
-                                                <constraint firstItem="UE2-Rk-Jvg" firstAttribute="height" secondItem="4FR-e1-Dda" secondAttribute="height" id="ZIs-ii-DVk"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="QKL-W8-tKg" secondAttribute="trailing" id="dfk-2j-6G4"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="QKL-W8-tKg" secondAttribute="trailing" constant="10" id="dfk-2j-6G4"/>
                                                 <constraint firstItem="QKL-W8-tKg" firstAttribute="leading" secondItem="4FR-e1-Dda" secondAttribute="leadingMargin" id="ouN-xw-DhC"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="QKL-W8-tKg" secondAttribute="bottom" id="pWP-co-Sws"/>
                                             </constraints>

@@ -32,6 +32,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         print("here")
         let cell = tableView.dequeueReusableCellWithIdentifier("TimeCell", forIndexPath: indexPath) as! TimeCell
+        cell.colorDez.backgroundColor? = UIColor.blueColor()
         var currTime = indexPath.row
         var labelString:String = ""
         if(currTime==0){
@@ -47,7 +48,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             labelString = "\(currTime-12):00"
         }
         print(labelString);
-        cell.colorDez.backgroundColor? = UIColor.blackColor()
+        
         cell.timeLabel.text = labelString
         
         return cell
