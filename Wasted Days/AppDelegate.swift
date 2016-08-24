@@ -9,14 +9,15 @@
 import UIKit
 import CoreData
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    var allDays:[Day] = []
     var window: UIWindow?
-
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        saveToUserDefaults()
         return true
     }
 
@@ -92,7 +93,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     // MARK: - Core Data Saving support
-
+    
+    
+    func saveToUserDefaults() {
+        let fetch:NSFetchRequest = NSFetchRequest.init(entityName: "Device")
+        var retrieved:NSArray = []
+        do{
+            retrieved = try managedObjectContext.executeFetchRequest(fetch)
+        } catch {
+            print(error)
+            
+        }
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(retrieved, forKey: "history")
+        print(retrieved)
+      
+    }
     func saveContext () {
         if managedObjectContext.hasChanges {
             do {

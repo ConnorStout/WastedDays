@@ -12,7 +12,7 @@ class Day{
     var month:Int
     var day:Int
     var tasks:[String]
-    var types:[String]
+    var types:[Int]
     var yearMonthDay:Int
     init(year:Int, month:Int, day:Int){
         self.year = year
@@ -20,12 +20,12 @@ class Day{
         tasks = []
         types = []
         for(var i = 0; i<24;i++){
-            tasks[i] = ""
-            types[i] = ""
+            tasks[i] = "empty"
+            types[i] = 0
         }
         self.day = day
         var dayString:String
-        var monthString:String
+        var monthString:String = ""
         
         if(day<10){
             dayString = ("0"+String(day))
@@ -41,11 +41,42 @@ class Day{
         }
         self.yearMonthDay = Int((String(year)+monthString+dayString))!
     }
-    
-    func addTask(task:String, type:String, hour:Int){
+    init(yearMonthDay:Int){
+        
+        let stringDate = String(yearMonthDay)
+        var splitString = Array(stringDate.characters)
+        print(stringDate)
+        print(splitString)
+        var yearStr = Int("\(splitString[0])\(splitString[1])")!
+        print(splitString[2])
+        print(splitString[3])
+        yearStr += Int("\(splitString[2])\(splitString[3])")!
+        self.year = yearStr
+        self.month = Int("\(splitString[4])\(splitString[5])")!
+        tasks = []
+        types = []
+        for(var i = 0; i<24;i++){
+            tasks.append("empty")
+            types.append(0)
+        }
+        self.day = Int("\(splitString[6])\(splitString[7])")!
+        
+        self.yearMonthDay = yearMonthDay
+    }
+    func addTask(task:String, type:Int, hour:Int){
         tasks[hour] = task
         types[hour] = type
         
+        
+    }
+    func isEqual(day:Day)->Bool{
+        if(self.yearMonthDay==day.yearMonthDay){
+            return true
+            
+        }else{
+            
+            return false
+        }
         
     }
     
