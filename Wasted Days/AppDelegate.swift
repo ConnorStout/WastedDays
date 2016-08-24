@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         saveToUserDefaults()
+        
         return true
     }
 
@@ -42,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
+        self.saveToCoreData()
         self.saveContext()
     }
 
@@ -96,17 +98,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func saveToUserDefaults() {
-        let fetch:NSFetchRequest = NSFetchRequest.init(entityName: "Device")
-        var retrieved:NSArray = []
+        let fetch:NSFetchRequest = NSFetchRequest(entityName: "Device")
+        var retrieved = []
+     
         do{
-            retrieved = try managedObjectContext.executeFetchRequest(fetch)
+            retrieved = try managedObjectContext.executeFetchRequest(fetch) as! [Device]
+            
         } catch {
             print(error)
             
         }
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(retrieved, forKey: "history")
-        print(retrieved)
+        print(retrieved[0].valueForKeyPath("yearMonthDay"))
+        
       
     }
     func saveContext () {
@@ -120,6 +123,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
                 abort()
             }
+        }
+    }
+    func saveToCoreData(){
+        for(var i = 0;i<self.allDays.count;i++){
+            for(var j = 0; j<24; j++){
+                print(self.allDays[i].yearMonthDay)
+                print(j)
+                print(self.allDays[i].tasks[j])
+                print(self.allDays[i].types[j])
+                let saved = NSEntityDescription.insertNewObjectForEntityForName("Device", inManagedObjectContext: self.managedObjectContext) 
+                print("here3")
+                saved.setValue(self.allDays[i].yearMonthDay, forKey: "yearMonthDay")
+                print("here")
+                saved.setValue(j, forKey: "hour")
+                print("here1")
+                saved.setValue(self.allDays[i].tasks[j], forKey: "task")
+                print("here2")
+                saved.setValue(self.allDays[i].types[j], forKey: "type")
+                
+            }
+            
+        }
+        var error : NSError? = nil
+        do {
+            try managedObjectContext.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
         }
     }
 
