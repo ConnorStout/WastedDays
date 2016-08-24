@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     var currYearMonthDay:Int = 0
     var currIndex:Int = 0
@@ -70,8 +70,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         cell.timeLabel.text = labelString
         
-        //task and cat
+        //task
         cell.nameOfEvent.text = appDelegate.allDays[currIndex].tasks[indexPath.row]
+        
+        cell.nameOfEvent.delegate = self
+        cell.nameOfEvent.tag = indexPath.row
+     
+        
+        
+        //cat
         let color:Int = appDelegate.allDays[currIndex].types[indexPath.row]
         if(color==0){
             cell.colorDez.backgroundColor? = UIColor.blueColor()
@@ -146,7 +153,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     @IBAction func rightButton(sender: AnyObject) {
+        currYearMonthDay+=1;
+        possiblyAddNewDay()
         
+        dailyTimeTable.reloadData()
     }
     func possiblyAddNewDay(){
         if(doesDayExist()==(-1)){
@@ -162,6 +172,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var labelString:String = ("\(appDelegate.allDays[currIndex].month)/\(appDelegate.allDays[currIndex].day)/\(appDelegate.allDays[currIndex].year)")
         dateLabel.text = labelString
         
+    }
+    func textFieldDidEndEditing(textField: UITextField) {
+        print("worked")
+        appDelegate.allDays[currIndex].tasks[Int(textField.tag)] = textField.text!
     }
 }
 
