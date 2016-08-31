@@ -51,7 +51,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCellWithIdentifier("TimeCell", forIndexPath: indexPath) as! TimeCell
         //time label
         cell.backgroundColor = .clearColor()
-        
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         var currTime = indexPath.row
         var labelString:String = ""
         if(currTime==0){

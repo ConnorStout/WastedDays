@@ -109,8 +109,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         print(retrieved[0].valueForKeyPath("yearMonthDay"))
+        for (var i = 0; i<retrieved.count;i++){
+            let index:Int = doesDayExist(Int(retrieved[i].valueForKeyPath("yearMonthDay")! as! NSNumber))
+                
+            if(index == (-1)){
+                var newDay:Day = Day(yearMonthDay: Int(retrieved[i].valueForKeyPath("yearMonthDay")! as! NSNumber))
+                let hour:Int = Int(retrieved[i].valueForKeyPath("hour")! as! NSNumber)
+                newDay.types[hour] = Int(retrieved[i].valueForKeyPath("type")! as! NSInteger)
+                newDay.tasks[hour] = String(retrieved[i].valueForKeyPath("task")! as! NSString)
+                allDays.append(newDay)
+                
+            }else{
+                let hour:Int = Int(retrieved[i].valueForKeyPath("hour")! as! NSNumber)
+                allDays[index].tasks[hour] = String(retrieved[i].valueForKeyPath("task")! as! NSString)
+                allDays[index].types[hour] = Int(retrieved[i].valueForKeyPath("type")! as! NSInteger)
+            }
+            
+            
+            
+        }
         
       
+    }
+    func doesDayExist(input:Int)->Int{
+        
+        for(var i=0;i<allDays.count;i++){
+            if(allDays[i].yearMonthDay==input){
+                return i;
+                
+            }
+            
+            
+        }
+        return -1
+        
     }
     func saveContext () {
         if managedObjectContext.hasChanges {
