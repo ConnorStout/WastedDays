@@ -17,6 +17,8 @@
 		6C835D921D2C98430041E0E6 /* TimeTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C835D911D2C98430041E0E6 /* TimeTableController.swift */; };
 		6CA8A1521D6B7B4400A48537 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA8A1511D6B7B4400A48537 /* Day.swift */; };
 		6CA8A1541D6D7CF400A48537 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA8A1531D6D7CF400A48537 /* Device.swift */; };
+		6CBEC14B1D766A2A00DBE1C8 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBEC14A1D766A2A00DBE1C8 /* HomeController.swift */; };
+		6CBEC1B51D77E43B00DBE1C8 /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBEC1B41D77E43B00DBE1C8 /* PieChart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		6C835D911D2C98430041E0E6 /* TimeTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableController.swift; sourceTree = "<group>"; };
 		6CA8A1511D6B7B4400A48537 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		6CA8A1531D6D7CF400A48537 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		6CBEC14A1D766A2A00DBE1C8 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		6CBEC1B41D77E43B00DBE1C8 /* PieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +71,10 @@
 				6C835D7A1D2B119D0041E0E6 /* AppDelegate.swift */,
 				6C835D8F1D2C8AE70041E0E6 /* TimeCell.swift */,
 				6C835D7C1D2B119D0041E0E6 /* ViewController.swift */,
+				6CBEC1B41D77E43B00DBE1C8 /* PieChart.swift */,
 				6CA8A1511D6B7B4400A48537 /* Day.swift */,
 				6CA8A1531D6D7CF400A48537 /* Device.swift */,
+				6CBEC14A1D766A2A00DBE1C8 /* HomeController.swift */,
 				6C835D911D2C98430041E0E6 /* TimeTableController.swift */,
 				6C835D7E1D2B119D0041E0E6 /* Main.storyboard */,
 				6C835D841D2B119D0041E0E6 /* Assets.xcassets */,
@@ -150,10 +156,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CBEC1B51D77E43B00DBE1C8 /* PieChart.swift in Sources */,
 				6C835D921D2C98430041E0E6 /* TimeTableController.swift in Sources */,
 				6C835D901D2C8AE70041E0E6 /* TimeCell.swift in Sources */,
 				6CA8A1521D6B7B4400A48537 /* Day.swift in Sources */,
 				6C835D831D2B119D0041E0E6 /* Wasted_Days.xcdatamodeld in Sources */,
+				6CBEC14B1D766A2A00DBE1C8 /* HomeController.swift in Sources */,
 				6C835D7D1D2B119D0041E0E6 /* ViewController.swift in Sources */,
 				6CA8A1541D6D7CF400A48537 /* Device.swift in Sources */,
 				6C835D7B1D2B119D0041E0E6 /* AppDelegate.swift in Sources */,

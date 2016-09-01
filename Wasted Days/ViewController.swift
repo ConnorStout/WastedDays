@@ -25,15 +25,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         print(currYearMonthDay)
         
-        self.view.backgroundColor = UIColor.brownColor()
+        
         // Do any additional setup after loading the view, typically from a nib.
        
-        
-    }
-    override func viewDidAppear(animated: Bool) {
         let backgroundImage = UIImage(named: "blackbackground.jpg")
         let imageView = UIImageView(image: backgroundImage)
-        self.dailyTimeTable.backgroundView = imageView
+        self.dailyTimeTable?.backgroundView = imageView
+    }
+    override func viewDidAppear(animated: Bool) {
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -170,7 +170,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     func updateLabel(){
         var labelString:String = ("\(appDelegate.allDays[currIndex].month)/\(appDelegate.allDays[currIndex].day)/\(appDelegate.allDays[currIndex].year)")
-        dateLabel.text = labelString
+        
+
+        dateLabel?.text = labelString
         
     }
     func textFieldDidEndEditing(textField: UITextField) {
