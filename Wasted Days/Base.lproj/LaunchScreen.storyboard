@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,7 +18,38 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="trash_can" translatesAutoresizingMaskIntoConstraints="NO" id="pAE-uA-bzr">
+                                <rect key="frame" x="36" y="381" width="130" height="187"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="187" id="i5L-xq-kzY"/>
+                                    <constraint firstAttribute="width" constant="126" id="kPa-2k-Pcs"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="dayCalendar" translatesAutoresizingMaskIntoConstraints="NO" id="mbO-pn-Gh3">
+                                <rect key="frame" x="83" y="314" width="64" height="67"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="mbO-pn-Gh3" secondAttribute="height" multiplier="1:1" id="XJh-T8-BPc"/>
+                                    <constraint firstAttribute="width" constant="64" id="ZXE-98-AzQ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Wasted Days" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KyQ-AH-Id1">
+                                <rect key="frame" x="29" y="152" width="531" height="38"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KyQ-AH-Id1" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="5Xu-aJ-kA1"/>
+                            <constraint firstItem="pAE-uA-bzr" firstAttribute="leading" secondItem="mbO-pn-Gh3" secondAttribute="trailing" constant="-101" id="5hc-2v-lVc"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="pAE-uA-bzr" secondAttribute="bottom" constant="30" id="8JW-cf-JUk"/>
+                            <constraint firstItem="mbO-pn-Gh3" firstAttribute="top" secondItem="KyQ-AH-Id1" secondAttribute="bottom" constant="124" id="Pgz-iP-2xs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="KyQ-AH-Id1" secondAttribute="trailing" id="ZNv-LF-JQ4"/>
+                            <constraint firstItem="pAE-uA-bzr" firstAttribute="top" secondItem="mbO-pn-Gh3" secondAttribute="bottom" id="d5B-vl-5Ab"/>
+                            <constraint firstItem="pAE-uA-bzr" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="22" id="rWZ-yY-20D"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +57,8 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="dayCalendar" width="752" height="800"/>
+        <image name="trash_can" width="273" height="304"/>
+    </resources>
 </document>

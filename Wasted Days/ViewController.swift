@@ -9,21 +9,27 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     var currYearMonthDay:Int = 0
     var currIndex:Int = 0
+    var changeViewOut = false
+    var currChangeType: ChangeTypeView = ChangeTypeView()
+    var dateFormatter:DateFormatter = DateFormatter()
     
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var dailyTimeTable: UITableView!
     
     override func viewDidLoad() {
         if(currYearMonthDay == 0){
+            appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             currYearMonthDay = getCurrYearMonthDay()
             possiblyAddNewDay()
+            print(appDelegate.allDays[currIndex].types)
+            
         }
         
         super.viewDidLoad()
-        print(currYearMonthDay)
+      
         
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -50,7 +56,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
        
         let cell = tableView.dequeueReusableCellWithIdentifier("TimeCell", forIndexPath: indexPath) as! TimeCell
         //time label
-        cell.backgroundColor = .clearColor()
+        cell.backgroundView = UIImageView(image: UIImage(named: "celldesign.jpg"))
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         var currTime = indexPath.row
         var labelString:String = ""
@@ -80,14 +86,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         //cat
         let color:Int = appDelegate.allDays[currIndex].types[indexPath.row]
-        if(color==0){
-            cell.colorDez.backgroundColor? = UIColor.blueColor()
-            
-        }else{
-            
-             cell.colorDez.backgroundColor? = UIColor.blackColor()
-        }
+    
+        cell.colorDez.backgroundColor? = getColor(color)
+        cell.colorDez.tag = indexPath.row
         
+        
+        var pressed = UILongPressGestureRecognizer(target: self, action: "longPressed:")
+        
+        cell.colorDez.addGestureRecognizer(pressed)
+        cell.colorDez.userInteractionEnabled = true
         
         return cell
         
@@ -115,12 +122,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let components = calendar.components([.Day , .Month , .Year], fromDate: date)
         
         let year =  components.year
+        
         let month = components.month
         let day = components.day
         
-        print(year)
-        print(month)
-        print(day)
+      
+        
         var dayString:String
         var monthString:String
         if(day<10){
@@ -144,19 +151,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
 
     @IBAction func leftButton(sender: AnyObject) {
-        currYearMonthDay-=1;
+        currYearMonthDay = dateFormatter.previousDay(currYearMonthDay);
         possiblyAddNewDay()
-        
+       
         dailyTimeTable.reloadData()
-        
+        print(appDelegate.allDays[currIndex].types)
     }
     
     
     @IBAction func rightButton(sender: AnyObject) {
-        currYearMonthDay+=1;
+        currYearMonthDay = dateFormatter.nextDay(currYearMonthDay)
         possiblyAddNewDay()
-        
+ 
         dailyTimeTable.reloadData()
+        
     }
     func possiblyAddNewDay(){
         if(doesDayExist()==(-1)){
@@ -176,8 +184,89 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     func textFieldDidEndEditing(textField: UITextField) {
-        print("worked")
+        
         appDelegate.allDays[currIndex].tasks[Int(textField.tag)] = textField.text!
     }
+    @IBAction func longPressed(sender: UILongPressGestureRecognizer)
+    {
+
+        
+        if(!self.view.subviews.contains(currChangeType)){
+            var newChangeView = (ChangeTypeView(frame: self.view.frame,sender: sender.view!,currIndex:currIndex))
+            
+            currChangeType = newChangeView
+            view.addSubview(newChangeView)
+           
+            changeViewOut = true
+            
+        }
+        
+    }
+  
+
+    func getColor(a:Int)->UIColor{
+        if(a==0){
+            return UIColor.purpleColor()
+            
+        }else if(a==1){
+            return UIColor.greenColor()
+            
+        }else if(a==2){
+            return UIColor.init(red: 105/255, green: 155/255, blue: 0, alpha: 1)
+            
+        }else if(a==3){
+            return UIColor.orangeColor()
+            
+        }else if(a==4){
+            return UIColor.redColor()
+            
+        }else if(a==5){
+            return  UIColor.blueColor()
+            
+        }else if(a==6){
+            return  UIColor.grayColor()
+            
+        }else if(a==7){
+            return  UIColor.lightGrayColor()
+            
+        }else{
+            
+            return UIColor.blackColor()
+        }
+        
+    }
+    
+    func getNumberFromColor(a:UIColor)->Int{
+        
+        if(a==UIColor.purpleColor()){
+            return 0
+            
+        }else if(a==UIColor.greenColor()){
+            return 1
+            
+        }else if(a==UIColor.init(red: 105/255, green: 155/255, blue: 0, alpha: 1)){
+            return 2
+            
+        }else if(a==UIColor.orangeColor()){
+            return 3
+            
+        }else if(a==UIColor.redColor()){
+            return 4
+            
+        }else if(a==UIColor.blueColor()){
+            return 5
+            
+        }else if(a==UIColor.grayColor()){
+            return 6
+            
+        }else if(a==UIColor.lightGrayColor()){
+            return 7
+            
+        }else{
+            return 7
+        }
+    }
+
+    
 }
 

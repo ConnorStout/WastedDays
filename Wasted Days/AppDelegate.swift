@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(error)
             
         }
-        print(retrieved[0].valueForKeyPath("yearMonthDay"))
+       
         for (var i = 0; i<retrieved.count;i++){
             let index:Int = doesDayExist(Int(retrieved[i].valueForKeyPath("yearMonthDay")! as! NSNumber))
                 
@@ -160,18 +160,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func saveToCoreData(){
         for(var i = 0;i<self.allDays.count;i++){
             for(var j = 0; j<24; j++){
-                print(self.allDays[i].yearMonthDay)
-                print(j)
-                print(self.allDays[i].tasks[j])
-                print(self.allDays[i].types[j])
+              
                 let saved = NSEntityDescription.insertNewObjectForEntityForName("Device", inManagedObjectContext: self.managedObjectContext) 
-                print("here3")
+       
                 saved.setValue(self.allDays[i].yearMonthDay, forKey: "yearMonthDay")
-                print("here")
+ 
                 saved.setValue(j, forKey: "hour")
-                print("here1")
+      
                 saved.setValue(self.allDays[i].tasks[j], forKey: "task")
-                print("here2")
+         
                 saved.setValue(self.allDays[i].types[j], forKey: "type")
                 
             }

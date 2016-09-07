@@ -21,7 +21,7 @@ class Day{
         types = []
         for(var i = 0; i<24;i++){
             tasks[i] = "empty"
-            types[i] = 0
+            types[i] = 7
         }
         self.day = day
         var dayString:String
@@ -45,19 +45,16 @@ class Day{
         
         let stringDate = String(yearMonthDay)
         var splitString = Array(stringDate.characters)
-        print(stringDate)
-        print(splitString)
-        var yearStr = Int("\(splitString[0])\(splitString[1])")!
-        print(splitString[2])
-        print(splitString[3])
-        yearStr += Int("\(splitString[2])\(splitString[3])")!
-        self.year = yearStr
+        //2016.08.26
+        var yearStr = ("\(splitString[0])\(splitString[1])")
+        yearStr += ("\(splitString[2])\(splitString[3])")
+        self.year = Int(yearStr)!
         self.month = Int("\(splitString[4])\(splitString[5])")!
         tasks = []
         types = []
         for(var i = 0; i<24;i++){
             tasks.append("empty")
-            types.append(0)
+            types.append(7)
         }
         self.day = Int("\(splitString[6])\(splitString[7])")!
         
