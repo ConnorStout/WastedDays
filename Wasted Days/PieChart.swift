@@ -16,10 +16,13 @@ class PieChart: UIView {
     var names:[String] = ["Nothing"]
     var colors:[Int] = [7]
     var hasKey = false
-    
+    var colorScheme:[UIColor]=[]
+    var c = ColorObject()
     
     init(frame: CGRect, percentage:[Double],names:[String], color:[Int]) {
         super.init(frame: frame)
+        var c = ColorObject()
+        colorScheme = c.pieArray()
         if(color.count>0){
             hasKey = true
             percentages = percentage
@@ -32,6 +35,8 @@ class PieChart: UIView {
  
     }
     init(frame: CGRect, percentage:[Double], color:[Int]) {
+        var c = ColorObject()
+        colorScheme = c.pieArray()
         hasKey = true
         super.init(frame: frame)
         percentages = percentage
@@ -77,7 +82,11 @@ class PieChart: UIView {
             layer.path = myBezier.CGPath
             var thisColor = getColor(colors[i])
             layer.fillColor = thisColor.CGColor
-            layer.strokeColor = UIColor.whiteColor().CGColor
+            if(percentages.count != 1){
+                layer.strokeColor = UIColor.whiteColor().CGColor
+            }else{
+                layer.strokeColor = UIColor.grayColor().CGColor
+            }
             self.layer.addSublayer(layer)
             
         }
@@ -90,9 +99,9 @@ class PieChart: UIView {
         
         
         for(var i = 0;i<names.count;i++){
-            var thisY = 30.0*Double(i)
+            var thisY = 25.0*Double(i)
             if(i>3){
-                thisY = thisY-(30*4)
+                thisY = thisY-(25*4)
             }
             var thisX = 0
             if(i>3){
@@ -112,6 +121,7 @@ class PieChart: UIView {
             label.textAlignment = NSTextAlignment.Left
             label.text = names[i]
             label.font = label.font.fontWithSize(15)
+            label.textColor = c.primaryD
             self.addSubview(label)
         }
         
@@ -127,33 +137,10 @@ class PieChart: UIView {
         
     }
     func getColor(a:Int)->UIColor{
-        if(a==0){
-            return UIColor.purpleColor()
-            
-        }else if(a==1){
-            return UIColor.greenColor()
-            
-        }else if(a==2){
-            return UIColor.init(red: 105/255, green: 155/255, blue: 0, alpha: 1)
-            
-        }else if(a==3){
-            return UIColor.orangeColor()
-            
-        }else if(a==4){
-            return UIColor.redColor()
-            
-        }else if(a==5){
-            return  UIColor.blueColor()
-            
-        }else if(a==6){
-            return  UIColor.grayColor()
-            
-        }else if(a==7){
-            return  UIColor.lightGrayColor()
-            
-        }else{
-            
-            return UIColor.blackColor()
-        }
         
-    }}
+            return colorScheme[a]
+            
+    
+        
+    }
+}

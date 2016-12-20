@@ -15,16 +15,30 @@ class HomeController : ViewController {
     
     var names:[String] = []
     var colors:[Int] = []
-    @IBOutlet var navBar: UINavigationBar!
     var colorsCount:[Int] = []
     var chart = PieChart()
     
+    @IBOutlet var homeLabel: UILabel!
+   
     override func viewDidLoad(){
         super.viewDidLoad()
+        self.view.backgroundColor = c.primary
         getPieChartValues()
+        let dateFormatter = NSDateFormatter()
+    
+        
+        let date = NSDate()
+
+        // US English Locale (en_US)
+        dateFormatter.dateFormat = "MMMM dd yyyy"
+
+        homeLabel.text = dateFormatter.stringFromDate(date)
+        
         chart = PieChart(frame: view.frame,percentage: percentages,names: names,color: colors)
+        
+        
         view.addSubview(chart)
-        self.view.bringSubviewToFront(navBar)
+
        
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -33,7 +47,7 @@ class HomeController : ViewController {
         getPieChartValues()
         chart = PieChart(frame: view.frame,percentage: percentages,names: names,color: colors)
         view.addSubview(chart)
-        self.view.bringSubviewToFront(navBar)
+     
         
     
     }

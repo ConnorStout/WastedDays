@@ -5,6 +5,8 @@
 //  Created by Connor Stout on 9/6/16.
 //  Copyright © 2016 Connor Stout. All rights reserved.
 //
+import Foundation
+import UIKit
 
 class DateFormatter {
     
@@ -153,6 +155,7 @@ class DateFormatter {
         
         return (( year%100 != 0) && (year%4 == 0)) || year%400 == 0;
     }
+    
     
  
     

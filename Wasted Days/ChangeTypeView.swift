@@ -10,7 +10,7 @@ import UIKit
 
 class ChangeTypeView: UIView, UIGestureRecognizerDelegate {
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    var colorArray:[String] = ["sleep", "study","workout", "personal development", "work", "eat","relax/social", "waste"]
+    var nameArray:[String] = ["sleep", "study","workout", "personal development", "work", "eat","relax/social", "waste"]
     var midLocation:CGPoint = CGPoint(x: 0, y: 0)
     var superFrame:CGRect = CGRectMake(0, 0, 0, 0)
     var sentView:UIView = UIView()
@@ -42,8 +42,8 @@ class ChangeTypeView: UIView, UIGestureRecognizerDelegate {
     }
     override func drawRect(rect: CGRect) {
 
-        for(var i = 0;i<colorArray.count;i++){
-            var label = UILabel(frame: CGRectMake(self.center.x,CGFloat(0+10*i), self.frame.width,self.frame.height/CGFloat(colorArray.count)))
+        for(var i = 0;i<nameArray.count;i++){
+            var label = UILabel(frame: CGRectMake(self.center.x,CGFloat(0+10*i), self.frame.width,self.frame.height/CGFloat(nameArray.count)))
             label.center = CGPointMake(self.frame.size.width  / 2,
                 CGFloat(label.frame.size.height/2.0+CGFloat(label.frame.size.height*CGFloat(i))));
             label.textAlignment = NSTextAlignment.Center
@@ -53,33 +53,11 @@ class ChangeTypeView: UIView, UIGestureRecognizerDelegate {
             label.addGestureRecognizer(tap)
             tap.delegate = self
             
-            var a = colorArray[i]
+            var a = nameArray[i]
+            var c = ColorObject()
             
-            if(a==("sleep")){
-                label.backgroundColor = UIColor.purpleColor()
-                label.text = a
-            }else if(a==("study")){
-                label.backgroundColor = UIColor.greenColor()
-                label.text = a
-            }else if(a==("workout")){
-                label.backgroundColor = UIColor.init(red: 105/255, green: 155/255, blue: 0, alpha: 1)
-                label.text = a
-            }else if(a==("personal development")){
-                label.backgroundColor = UIColor.orangeColor()
-                label.text = a
-            }else if(a==("work")){
-                label.backgroundColor = UIColor.redColor()
-                label.text = a
-            }else if(a==("eat")){
-                label.backgroundColor = UIColor.blueColor()
-                label.text = a
-            }else if(a==("relax/social")){
-                label.backgroundColor = UIColor.grayColor()
-                label.text = a
-            }else if(a==("waste")){
-                label.backgroundColor = UIColor.lightGrayColor()
-                label.text = a
-            }
+            label.backgroundColor=c.pieArray()[i]
+            label.text = a;
             
             label.userInteractionEnabled = true
             label.tag = i
@@ -105,40 +83,39 @@ class ChangeTypeView: UIView, UIGestureRecognizerDelegate {
     }
     func handleTap(sender: UITapGestureRecognizer? = nil) {
         
-        var a = colorArray[(sender?.view!.tag)!]
+        var a = nameArray[(sender?.view!.tag)!]
         print("sender:\(sender?.view!.tag)")
         appDelegate.allDays[currIndex].types[Int((sentView.tag))] = (sender?.view!.tag)!
-        if(a==("sleep")){
-            sentView.backgroundColor = UIColor.purpleColor()
-            appDelegate.allDays[currIndex].tasks[Int((sentView.tag))] = "sleep"
-            
-        }else if(a==("study")){
-            sentView.backgroundColor = UIColor.greenColor()
-        }else if(a==("workout")){
-            sentView.backgroundColor = UIColor.init(red: 105/255, green: 155/255, blue: 0, alpha: 1)
-           
-        }else if(a==("personal development")){
-            sentView.backgroundColor = UIColor.orangeColor()
         
-        }else if(a==("work")){
-            sentView.backgroundColor = UIColor.redColor()
-           
-        }else if(a==("eat")){
-            sentView.backgroundColor = UIColor.blueColor()
+        var i = getNameNumber(a)
+        var c = ColorObject()
+        sentView.backgroundColor = c.pieArray()[i]
             
-        }else if(a==("relax/social")){
-            sentView.backgroundColor = UIColor.grayColor()
- 
-        }else if(a==("waste")){
-            sentView.backgroundColor = UIColor.lightGrayColor()
-
-        }
+            
+        
+        
+        
+     
         animateExit()
         
         
         
         
     }
+    func getNameNumber(input:String)->Int{
+        var i=0;
+        for x in nameArray{
+            
+            if(x==input){
+                return i
+                
+            }
+            i+=1
+        }
+        return 7;
+        
+    }
+    
     func animateExit(){
         
         UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseOut, animations: {

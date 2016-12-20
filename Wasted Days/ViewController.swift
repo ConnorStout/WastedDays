@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var changeViewOut = false
     var currChangeType: ChangeTypeView = ChangeTypeView()
     var dateFormatter:DateFormatter = DateFormatter()
-    
+    var c = ColorObject()
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var dailyTimeTable: UITableView!
     
@@ -25,8 +25,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             currYearMonthDay = getCurrYearMonthDay()
             possiblyAddNewDay()
             print(appDelegate.allDays[currIndex].types)
+            self.view.backgroundColor = UIColor(red: 142/255, green: 237/255, blue: 255/255, alpha: 1.0)
             
         }
+        
         
         super.viewDidLoad()
       
@@ -34,12 +36,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Do any additional setup after loading the view, typically from a nib.
        
-        let backgroundImage = UIImage(named: "blackbackground.jpg")
-        let imageView = UIImageView(image: backgroundImage)
-        self.dailyTimeTable?.backgroundView = imageView
+        
+        self.dailyTimeTable?.backgroundColor = c.primary
+        self.dailyTimeTable?.separatorColor = c.primaryD
+    
+        
     }
     override func viewDidAppear(animated: Bool) {
-        
+       
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,7 +60,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
        
         let cell = tableView.dequeueReusableCellWithIdentifier("TimeCell", forIndexPath: indexPath) as! TimeCell
         //time label
-        cell.backgroundView = UIImageView(image: UIImage(named: "celldesign.jpg"))
+        cell.backgroundColor = UIColor(red: 36/255, green: 36/255, blue: 36/255, alpha: 1.0)
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         var currTime = indexPath.row
         var labelString:String = ""
@@ -205,66 +209,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
   
 
     func getColor(a:Int)->UIColor{
-        if(a==0){
-            return UIColor.purpleColor()
-            
-        }else if(a==1){
-            return UIColor.greenColor()
-            
-        }else if(a==2){
-            return UIColor.init(red: 105/255, green: 155/255, blue: 0, alpha: 1)
-            
-        }else if(a==3){
-            return UIColor.orangeColor()
-            
-        }else if(a==4){
-            return UIColor.redColor()
-            
-        }else if(a==5){
-            return  UIColor.blueColor()
-            
-        }else if(a==6){
-            return  UIColor.grayColor()
-            
-        }else if(a==7){
-            return  UIColor.lightGrayColor()
-            
-        }else{
-            
-            return UIColor.blackColor()
-        }
+        var colorScheme = ColorObject()
+        return colorScheme.pieArray()[a]
         
     }
     
     func getNumberFromColor(a:UIColor)->Int{
         
-        if(a==UIColor.purpleColor()){
-            return 0
-            
-        }else if(a==UIColor.greenColor()){
-            return 1
-            
-        }else if(a==UIColor.init(red: 105/255, green: 155/255, blue: 0, alpha: 1)){
-            return 2
-            
-        }else if(a==UIColor.orangeColor()){
-            return 3
-            
-        }else if(a==UIColor.redColor()){
-            return 4
-            
-        }else if(a==UIColor.blueColor()){
-            return 5
-            
-        }else if(a==UIColor.grayColor()){
-            return 6
-            
-        }else if(a==UIColor.lightGrayColor()){
-            return 7
-            
-        }else{
-            return 7
-        }
+        var c = ColorObject()
+        return c.getNumber(a)
     }
 
     
