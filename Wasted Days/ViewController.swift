@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
     var currIndex:Int = 0
     var changeViewOut = false
     var currChangeType: ChangeTypeView = ChangeTypeView()
-    var dateFormatter:DateFormatter = DateFormatter()
+    var df:DateFormatter = DateFormatter()
     var c = ColorObject()
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var timeCollection: UICollectionView!
@@ -24,8 +24,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
     override func viewDidLoad() {
         if(currYearMonthDay == 0){
             appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            currYearMonthDay = getCurrYearMonthDay()
-            possiblyAddNewDay()
+            currYearMonthDay = df.getCurrYearMonthDay()
+            df.possiblyAddNewDay(currYearMonthDay)
             print(appDelegate.allDays[currIndex].types)
             self.view.backgroundColor = UIColor(red: 142/255, green: 237/255, blue: 255/255, alpha: 1.0)
             inset = self.view.frame.width/50
@@ -183,50 +183,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
         
     }
     */
-    func doesDayExist()->Int{
-     
-        for(var i=0;i<appDelegate.allDays.count;i++){
-            if(appDelegate.allDays[i].yearMonthDay==self.currYearMonthDay){
-                return i;
-                
-            }
-            
-            
-        }
-        return -1
-        
-    }
+    
 
-    func getCurrYearMonthDay()->Int{
-        
-        
-        let date = NSDate()
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Day , .Month , .Year], fromDate: date)
-        
-        let year =  components.year
-        
-        let month = components.month
-        let day = components.day
-        
-      
-        
-        var dayString:String
-        var monthString:String
-        if(day<10){
-            dayString = ("0"+String(day))
-            
-        }else{
-            dayString = String(day)
-        }
-        if(month<10){
-            monthString = ("0"+String(month))
-            
-        }else{
-            monthString = String(month)
-        }
-        return Int((String(year)+monthString+dayString))!
-    }
+    
     func getDayIndex(){
         
         
@@ -234,31 +193,25 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
     
 
     @IBAction func leftButton(sender: AnyObject) {
-        currYearMonthDay = dateFormatter.previousDay(currYearMonthDay);
-        possiblyAddNewDay()
-       
+        currYearMonthDay = df.previousDay(currYearMonthDay);
+        df.possiblyAddNewDay(currYearMonthDay)
+        currIndex = df.getDayIndex(currYearMonthDay)
         timeCollection.reloadData()
+        updateLabel()
         print(appDelegate.allDays[currIndex].types)
     }
     
     
     @IBAction func rightButton(sender: AnyObject) {
-        currYearMonthDay = dateFormatter.nextDay(currYearMonthDay)
-        possiblyAddNewDay()
- 
+        currYearMonthDay = df.nextDay(currYearMonthDay)
+        df.possiblyAddNewDay(currYearMonthDay)
+        currIndex = df.getDayIndex(currYearMonthDay)
+        timeCollection.reloadData()
+        updateLabel()
         timeCollection.reloadData()
         
     }
-    func possiblyAddNewDay(){
-        if(doesDayExist()==(-1)){
-            var newDay:Day = Day(yearMonthDay:currYearMonthDay);
-            appDelegate.allDays.append(newDay)
-            currIndex = appDelegate.allDays.count-1
-        }else{
-            currIndex = doesDayExist()
-        }
-        updateLabel()
-    }
+    
    
     func updateLabel(){
         var labelString:String = ("\(appDelegate.allDays[currIndex].month)/\(appDelegate.allDays[currIndex].day)/\(appDelegate.allDays[currIndex].year)")

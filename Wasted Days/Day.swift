@@ -46,6 +46,7 @@ class Day{
         let stringDate = String(yearMonthDay)
         var splitString = Array(stringDate.characters)
         //2016.08.26
+        print("here1\(splitString)")
         var yearStr = ("\(splitString[0])\(splitString[1])")
         yearStr += ("\(splitString[2])\(splitString[3])")
         self.year = Int(yearStr)!

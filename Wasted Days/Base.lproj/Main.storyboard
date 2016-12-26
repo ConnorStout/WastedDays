@@ -98,8 +98,8 @@
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="rmm-eH-sqG"/>
                                                 <exclude reference="iZk-3m-P8R"/>
+                                                <exclude reference="rmm-eH-sqG"/>
                                             </mask>
                                         </variation>
                                     </stackView>

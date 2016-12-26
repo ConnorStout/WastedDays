@@ -9,27 +9,29 @@
 import Foundation
 import UIKit
 
-class HomeController : ViewController {
+class HomeController : UIViewController {
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
     var percentages:[Double] = []
-    
+    let c = ColorObject()
+    let df = DateFormatter()
     var names:[String] = []
     var colors:[Int] = []
     var colorsCount:[Int] = []
     var chart = PieChart()
     var chartState = 10
+    var today = 0
+   
     @IBOutlet var pieView: UIView!
     @IBOutlet var homeLabel: UILabel!
    
     override func viewDidLoad(){
+        print("got into home")
         super.viewDidLoad()
         self.view.backgroundColor = c.primary
-        
         let dateFormatter = NSDateFormatter()
-    
-        
         let date = NSDate()
-
+        today = df.getCurrYearMonthDay()
+        print("today here is\(today)")
         // US English Locale (en_US)
         dateFormatter.dateFormat = "MMMM dd yyyy"
 
@@ -65,15 +67,15 @@ class HomeController : ViewController {
         var numberOfDays = 0
        
             print("got here")
-            var day = getCurrYearMonthDay()
-            possiblyAddNewDay()
-            
+            print(today)
+            df.possiblyAddNewDay(today)
+            print("got here?")
             for(var j = 0;j<howManyDays;j++){
                 for(var i = 0;i<24;i++){
-                    if(currIndex-j<0){
+                    if(df.getDayIndex(today)-j<0){
                         
                     }else{
-                    var thisTask = appDelegate.allDays[currIndex-j].types[i]
+                    var thisTask = appDel.allDays[df.getDayIndex(today)-j].types[i]
                     numberOfDays++
                     if(colors.contains(thisTask)){
                         colorsCount[colors.indexOf(thisTask)!]+=1 //= colorsCount[names.indexOf(thisTask)!]+1
