@@ -25,17 +25,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
         if(currYearMonthDay == 0){
             appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             currYearMonthDay = df.getCurrYearMonthDay()
+            currIndex = df.getDayIndex(currYearMonthDay)
             df.possiblyAddNewDay(currYearMonthDay)
+            currIndex = df.getDayIndex(currYearMonthDay)
+            updateLabel()
             print(appDelegate.allDays[currIndex].types)
             self.view.backgroundColor = UIColor(red: 142/255, green: 237/255, blue: 255/255, alpha: 1.0)
             inset = self.view.frame.width/50
-            
             timeCollection?.contentInset = UIEdgeInsets(top: inset,left: inset*2,bottom: inset,right: inset*2)
-            let bgImage = UIImageView();
-            bgImage.image = UIImage(named: "gradient.png");
-            bgImage.contentMode = .ScaleToFill
-            //timeCollection?.backgroundView = bgImage
-            //timeCollection?.backgroundColor = UIColor.whiteColor()
             let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
             layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 10, right: 0)
             layout.itemSize = CGSize(width: self.view.frame.width/3, height: self.view.frame.width/3)
