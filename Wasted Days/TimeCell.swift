@@ -8,12 +8,12 @@
 
 import Foundation
 import UIKit
-class TimeCell: UITableViewCell{
+class TimeCell: UICollectionViewCell{
     
    
     @IBOutlet var timeLabel: UILabel!
-    @IBOutlet var nameOfEvent: UITextField!
-    @IBOutlet var colorDez: UIImageView!
+    
+    
    
 
  

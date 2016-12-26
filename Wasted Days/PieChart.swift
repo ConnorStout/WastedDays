@@ -18,7 +18,7 @@ class PieChart: UIView {
     var hasKey = false
     var colorScheme:[UIColor]=[]
     var c = ColorObject()
-    
+    var chartCenter:CGPoint = CGPoint()
     init(frame: CGRect, percentage:[Double],names:[String], color:[Int]) {
         super.init(frame: frame)
         var c = ColorObject()
@@ -29,9 +29,11 @@ class PieChart: UIView {
             self.names = names
             self.colors = color
         }
+        radius = Double(self.frame.size.width/2-10)
         self.backgroundColor = UIColor(white: 1, alpha: 0.5)
         centerX = Double(self.center.x)
-        centerY = Double(self.center.y)
+        centerY = Double(radius+10)
+        chartCenter = CGPointMake(CGFloat(centerX), CGFloat(centerY))
  
     }
     init(frame: CGRect, percentage:[Double], color:[Int]) {
@@ -40,11 +42,12 @@ class PieChart: UIView {
         hasKey = true
         super.init(frame: frame)
         percentages = percentage
-        
+        radius = Double(self.frame.size.width/2-10)
         self.colors = color
         self.backgroundColor = UIColor(white: 1, alpha: 0.5)
         centerX = Double(self.center.x)
-        centerY = Double(self.center.y)
+        centerY = Double(radius+10)
+        chartCenter = CGPointMake(CGFloat(centerX), CGFloat(centerY))
         
     }
     init() {
@@ -59,7 +62,7 @@ class PieChart: UIView {
     override func drawRect(rect: CGRect) {
         // Drawing code
         
-        radius = Double(self.frame.size.width/2-10)
+        
         drawLines()
         if(hasKey){
             addKey()
@@ -73,8 +76,8 @@ class PieChart: UIView {
         for(var i = 0;i<percentages.count;i++){
             var thisAngle = percentages[i]*2*M_PI
             var myBezier = UIBezierPath()
-            myBezier.moveToPoint(CGPointMake(center.x, center.y))
-            myBezier.addArcWithCenter(center, radius:CGFloat(radius), startAngle:totalAngle, endAngle: CGFloat(thisAngle)+totalAngle, clockwise:true)
+            myBezier.moveToPoint(chartCenter)
+            myBezier.addArcWithCenter(chartCenter, radius:CGFloat(radius), startAngle:totalAngle, endAngle: CGFloat(thisAngle)+totalAngle, clockwise:true)
             totalAngle+=CGFloat(thisAngle)
             myBezier.closePath()
             

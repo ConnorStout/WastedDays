@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate{
+class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate{
     var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     var currYearMonthDay:Int = 0
     var currIndex:Int = 0
@@ -17,7 +17,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var dateFormatter:DateFormatter = DateFormatter()
     var c = ColorObject()
     @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var dailyTimeTable: UITableView!
+    @IBOutlet var timeCollection: UICollectionView!
+    var inset:CGFloat = 0
+    var verticalInset:CGFloat = 0
     
     override func viewDidLoad() {
         if(currYearMonthDay == 0){
@@ -26,7 +28,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             possiblyAddNewDay()
             print(appDelegate.allDays[currIndex].types)
             self.view.backgroundColor = UIColor(red: 142/255, green: 237/255, blue: 255/255, alpha: 1.0)
+            inset = self.view.frame.width/50
             
+            timeCollection?.contentInset = UIEdgeInsets(top: inset,left: inset*2,bottom: inset,right: inset*2)
+            let bgImage = UIImageView();
+            bgImage.image = UIImage(named: "gradient.png");
+            bgImage.contentMode = .ScaleToFill
+            //timeCollection?.backgroundView = bgImage
+            //timeCollection?.backgroundColor = UIColor.whiteColor()
+            let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+            layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 10, right: 0)
+            layout.itemSize = CGSize(width: self.view.frame.width/3, height: self.view.frame.width/3)
+            layout.minimumInteritemSpacing = 10
+            layout.minimumLineSpacing = 12
+            
+            timeCollection?.collectionViewLayout = layout
         }
         
         
@@ -37,19 +53,81 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Do any additional setup after loading the view, typically from a nib.
        
         
-        self.dailyTimeTable?.backgroundColor = c.primary
-        self.dailyTimeTable?.separatorColor = c.primaryD
+        
     
         
     }
     override func viewDidAppear(animated: Bool) {
-       
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 24
+    }
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! TimeCell
+        
+        
+   
+        cell.backgroundColor = UIColor(red: 36/255, green: 36/255, blue: 36/255, alpha: 1.0)
+        cell.layer.cornerRadius = 6;
+        var currTime = indexPath.row
+        var labelString:String = ""
+        if(currTime==0){
+            labelString = "12 AM"
+            
+        }else if (currTime<12){
+            labelString = "\(currTime)"
+            currTime+=1
+        }else if (currTime == 12){
+            labelString = "12 PM"
+        }
+        else{
+            labelString = "\(currTime-12)"
+        }
+        
+        
+        cell.timeLabel.text = labelString
+        cell.timeLabel.textColor = UIColor.whiteColor()
+        //task
+        
+        cell.tag = indexPath.row
+        
+        
+        //cat
+        let color:Int = appDelegate.allDays[currIndex].types[indexPath.row]
+        
+        cell.backgroundColor? = getColor(color)
+      
+        
+        
+        var pressed = UILongPressGestureRecognizer(target: self, action: "longPressed:")
+        
+        cell.addGestureRecognizer(pressed)
+        cell.userInteractionEnabled = true
+        
+        return cell
+    }
+    func collectionView(collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAtIndexPath: NSIndexPath) -> CGSize {
+        
+        return CGSize(width: self.view.frame.width/4-(inset*3), height: self.view.frame.width/4-(inset*3))
+    }
+    
+   
+
+    
+
+    
+    
+    
+    
+    
+    /*
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 24
     }
@@ -104,7 +182,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
     }
- 
+    */
     func doesDayExist()->Int{
      
         for(var i=0;i<appDelegate.allDays.count;i++){
@@ -118,6 +196,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return -1
         
     }
+
     func getCurrYearMonthDay()->Int{
         
         
@@ -158,7 +237,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         currYearMonthDay = dateFormatter.previousDay(currYearMonthDay);
         possiblyAddNewDay()
        
-        dailyTimeTable.reloadData()
+        timeCollection.reloadData()
         print(appDelegate.allDays[currIndex].types)
     }
     
@@ -167,7 +246,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         currYearMonthDay = dateFormatter.nextDay(currYearMonthDay)
         possiblyAddNewDay()
  
-        dailyTimeTable.reloadData()
+        timeCollection.reloadData()
         
     }
     func possiblyAddNewDay(){
@@ -180,6 +259,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         updateLabel()
     }
+   
     func updateLabel(){
         var labelString:String = ("\(appDelegate.allDays[currIndex].month)/\(appDelegate.allDays[currIndex].day)/\(appDelegate.allDays[currIndex].year)")
         

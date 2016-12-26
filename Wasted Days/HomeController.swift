@@ -17,13 +17,14 @@ class HomeController : ViewController {
     var colors:[Int] = []
     var colorsCount:[Int] = []
     var chart = PieChart()
-    
+    var chartState = 10
+    @IBOutlet var pieView: UIView!
     @IBOutlet var homeLabel: UILabel!
    
     override func viewDidLoad(){
         super.viewDidLoad()
         self.view.backgroundColor = c.primary
-        getPieChartValues()
+        
         let dateFormatter = NSDateFormatter()
     
         
@@ -33,21 +34,21 @@ class HomeController : ViewController {
         dateFormatter.dateFormat = "MMMM dd yyyy"
 
         homeLabel.text = dateFormatter.stringFromDate(date)
-        
-        chart = PieChart(frame: view.frame,percentage: percentages,names: names,color: colors)
-        
-        
-        view.addSubview(chart)
+     
+      
 
        
         // Do any additional setup after loading the view, typically from a nib.
     }
     override func viewWillAppear(animated: Bool) {
         chart.removeFromSuperview()
-        getPieChartValues()
-        chart = PieChart(frame: view.frame,percentage: percentages,names: names,color: colors)
-        view.addSubview(chart)
+        getPieChartValues(chartState)
+        chart = PieChart(frame: self.view.frame,percentage: percentages,names: names,color: colors)
+        self.pieView.addSubview(chart)
+        chart.userInteractionEnabled = false
      
+
+      
         
     
     }
@@ -56,31 +57,44 @@ class HomeController : ViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func getPieChartValues(){
+    func getPieChartValues(howManyDays:Int){
         names.removeAll()
         percentages.removeAll()
         colors.removeAll()
         colorsCount.removeAll()
-        var day = getCurrYearMonthDay()
-        possiblyAddNewDay()
-        for(var i = 0;i<24;i++){
-            var thisTask = appDelegate.allDays[currIndex].types[i]
-            if(colors.contains(thisTask)){
-                colorsCount[colors.indexOf(thisTask)!]+=1 //= colorsCount[names.indexOf(thisTask)!]+1
-               
-            }else{
-               colors.append(thisTask)
-               colorsCount.append(1)
-               names.append(getNameFromColor(thisTask))
+        var numberOfDays = 0
+       
+            print("got here")
+            var day = getCurrYearMonthDay()
+            possiblyAddNewDay()
+            
+            for(var j = 0;j<howManyDays;j++){
+                for(var i = 0;i<24;i++){
+                    if(currIndex-j<0){
+                        
+                    }else{
+                    var thisTask = appDelegate.allDays[currIndex-j].types[i]
+                    numberOfDays++
+                    if(colors.contains(thisTask)){
+                        colorsCount[colors.indexOf(thisTask)!]+=1 //= colorsCount[names.indexOf(thisTask)!]+1
+                        
+                    }else{
+                        colors.append(thisTask)
+                        colorsCount.append(1)
+                        names.append(getNameFromColor(thisTask))
+                    }
+                    }
+                
+                }
             }
-            
-            
-        }
-        setPercentages()
+        
+        
+        setPercentage(Double(numberOfDays))
+        print("fff\(numberOfDays)")
     }
-    func setPercentages(){
+    func setPercentage(number:Double){
         for(var i = 0;i<colorsCount.count;i++){
-            percentages.append(Double(colorsCount[i])/24.0)
+            percentages.append(Double(colorsCount[i])/(number))
             
         }
         
@@ -120,5 +134,18 @@ class HomeController : ViewController {
     }
     
     
+    @IBAction func changeChart(sender: UIButton) {
+        var newValue = sender.tag
+        if(chartState != newValue){
+            chartState = newValue
+            chart.removeFromSuperview()
+            getPieChartValues(chartState)
+            chart = PieChart(frame: self.view.frame,percentage: percentages,names: names,color: colors)
+            self.pieView.addSubview(chart)
+            chart.userInteractionEnabled = false
+        }
+        print("her")
+        
+    }
     
 }
