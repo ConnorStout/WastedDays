@@ -31,7 +31,7 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
         let dateFormatter = NSDateFormatter()
         let date = NSDate()
         today = df.getCurrYearMonthDay()
-        
+        df.possiblyAddNewDay(today)
         print("today here is\(today)")
         // US English Locale (en_US)
         dateFormatter.dateFormat = "EEEE MMMM dd, yyyy"

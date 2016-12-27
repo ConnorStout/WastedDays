@@ -12,7 +12,7 @@ class GoalsCell: UICollectionViewCell{
     
     
     @IBOutlet var goalLabel: UILabel!
-    @IBOutlet var goalBool: UiC
+    
     
     
     
