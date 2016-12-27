@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class HomeController : UIViewController {
+class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSource {
     let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
     var percentages:[Double] = []
     let c = ColorObject()
@@ -18,7 +18,7 @@ class HomeController : UIViewController {
     var colors:[Int] = []
     var colorsCount:[Int] = []
     var chart = PieChart()
-    var chartState = 10
+    var chartState = 1
     var today = 0
    
     @IBOutlet var pieView: UIView!
@@ -31,9 +31,10 @@ class HomeController : UIViewController {
         let dateFormatter = NSDateFormatter()
         let date = NSDate()
         today = df.getCurrYearMonthDay()
+        
         print("today here is\(today)")
         // US English Locale (en_US)
-        dateFormatter.dateFormat = "MMMM dd yyyy"
+        dateFormatter.dateFormat = "EEEE MMMM dd, yyyy"
 
         homeLabel.text = dateFormatter.stringFromDate(date)
      
@@ -47,6 +48,7 @@ class HomeController : UIViewController {
         getPieChartValues(chartState)
         chart = PieChart(frame: self.view.frame,percentage: percentages,names: names,color: colors)
         self.pieView.addSubview(chart)
+ 
         chart.userInteractionEnabled = false
      
 
@@ -69,13 +71,17 @@ class HomeController : UIViewController {
             print("got here")
             print(today)
             df.possiblyAddNewDay(today)
-            print("got here?")
+            print("howManyDays\(howManyDays)")
             for(var j = 0;j<howManyDays;j++){
+                    var thisDayIndex = df.getIndexOfRelativeDay(today, daysBack: j, forward: false)
+                    print(thisDayIndex)
                 for(var i = 0;i<24;i++){
-                    if(df.getDayIndex(today)-j<0){
+                    
+                    if(thisDayIndex == -1){
                         
                     }else{
-                    var thisTask = appDel.allDays[df.getDayIndex(today)-j].types[i]
+                 
+                    var thisTask = appDel.allDays[thisDayIndex].types[i]
                     numberOfDays++
                     if(colors.contains(thisTask)){
                         colorsCount[colors.indexOf(thisTask)!]+=1 //= colorsCount[names.indexOf(thisTask)!]+1
@@ -88,6 +94,7 @@ class HomeController : UIViewController {
                     }
                 
                 }
+                print(numberOfDays)
             }
         
         
@@ -102,6 +109,27 @@ class HomeController : UIViewController {
         
         
     }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return pieView.frame.size.height/6
+    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell")
+        return cell!
+    }
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let currIndex = df.getDayIndex(today)
+        return appDel.allDays[currIndex].goals.count
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     func getNameFromColor(a:Int)->String{
         
         if(a==0){

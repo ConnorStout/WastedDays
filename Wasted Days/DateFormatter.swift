@@ -191,8 +191,29 @@ class DateFormatter {
         return -1
         
     }
-    func getCurrYearMonthDay()->Int{
+    func getIndexOfRelativeDay(currDay: Int, daysBack:Int, forward:Bool)-> Int{
+        if(forward){
+            var newDay = currDay
+            for(var i = 0; i<daysBack; i++){
+                newDay = nextDay(currDay)
+                
+            }
+            return getDayIndex(newDay)
+            
+        }else{
+            var newDay = currDay
+            for(var i = 0; i<daysBack; i++){
+                newDay = previousDay(newDay)
+                
+            }
+            print(newDay)
+            return getDayIndex(newDay)
+        }
         
+        
+    }
+    func getCurrYearMonthDay()->Int{
+                        
         
         let date = NSDate()
         let calendar = NSCalendar.currentCalendar()

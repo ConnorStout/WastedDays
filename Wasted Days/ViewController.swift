@@ -30,6 +30,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
             currIndex = df.getDayIndex(currYearMonthDay)
             updateLabel()
             print(appDelegate.allDays[currIndex].types)
+            updateLabel()
             self.view.backgroundColor = UIColor(red: 142/255, green: 237/255, blue: 255/255, alpha: 1.0)
             inset = self.view.frame.width/50
             timeCollection?.contentInset = UIEdgeInsets(top: inset,left: inset*2,bottom: inset,right: inset*2)
@@ -180,14 +181,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
         
     }
     */
-    
-
-    
-    func getDayIndex(){
-        
-        
-    }
-    
 
     @IBAction func leftButton(sender: AnyObject) {
         currYearMonthDay = df.previousDay(currYearMonthDay);
