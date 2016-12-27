@@ -25,8 +25,10 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
         if(currYearMonthDay == 0){
             appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             currYearMonthDay = df.getCurrYearMonthDay()
+            currIndex = df.getDayIndex(currYearMonthDay)
             df.possiblyAddNewDay(currYearMonthDay)
             print(appDelegate.allDays[currIndex].types)
+            updateLabel()
             self.view.backgroundColor = UIColor(red: 142/255, green: 237/255, blue: 255/255, alpha: 1.0)
             inset = self.view.frame.width/50
             
@@ -183,14 +185,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
         
     }
     */
-    
-
-    
-    func getDayIndex(){
-        
-        
-    }
-    
 
     @IBAction func leftButton(sender: AnyObject) {
         currYearMonthDay = df.previousDay(currYearMonthDay);

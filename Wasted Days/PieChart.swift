@@ -29,11 +29,12 @@ class PieChart: UIView {
             self.names = names
             self.colors = color
         }
-        radius = Double(self.frame.size.width/2-10)
+        radius = Double(self.frame.size.width/4)
         self.backgroundColor = UIColor(white: 1, alpha: 0.5)
-        centerX = Double(self.center.x)
+        centerX = Double(self.frame.width*(4/6))
         centerY = Double(radius+10)
         chartCenter = CGPointMake(CGFloat(centerX), CGFloat(centerY))
+        self.frame.size.height = (self.frame.size.height/3)
  
     }
     init(frame: CGRect, percentage:[Double], color:[Int]) {
@@ -42,12 +43,13 @@ class PieChart: UIView {
         hasKey = true
         super.init(frame: frame)
         percentages = percentage
-        radius = Double(self.frame.size.width/2-10)
+        radius = Double(self.frame.size.width/4)
         self.colors = color
         self.backgroundColor = UIColor(white: 1, alpha: 0.5)
         centerX = Double(self.center.x)
         centerY = Double(radius+10)
         chartCenter = CGPointMake(CGFloat(centerX), CGFloat(centerY))
+        self.frame.size.height = (self.frame.size.height/3)
         
     }
     init() {
@@ -74,15 +76,19 @@ class PieChart: UIView {
         var totalAngle:CGFloat = 0
         
         for(var i = 0;i<percentages.count;i++){
+            
             var thisAngle = percentages[i]*2*M_PI
             var myBezier = UIBezierPath()
+           
             myBezier.moveToPoint(chartCenter)
             myBezier.addArcWithCenter(chartCenter, radius:CGFloat(radius), startAngle:totalAngle, endAngle: CGFloat(thisAngle)+totalAngle, clockwise:true)
             totalAngle+=CGFloat(thisAngle)
             myBezier.closePath()
             
             let layer = CAShapeLayer()
+            
             layer.path = myBezier.CGPath
+          
             var thisColor = getColor(colors[i])
             layer.fillColor = thisColor.CGColor
             if(percentages.count != 1){
@@ -98,18 +104,14 @@ class PieChart: UIView {
     
     
     func addKey(){
-        var corner = CGPoint(x: calculateNewX(5/4*M_PI)+15, y: calculateNewY(3/2*M_PI)+10)
+        var corner = CGPoint(x: frame.origin.x+40, y: frame.origin.y+20)
         
         
         for(var i = 0;i<names.count;i++){
             var thisY = 25.0*Double(i)
-            if(i>3){
-                thisY = thisY-(25*4)
-            }
+       
             var thisX = 0
-            if(i>3){
-                thisX = thisX+140
-            }
+         
             let context = UIGraphicsGetCurrentContext()
             CGContextSetLineWidth(context, 20.0)
             CGContextMoveToPoint(context, corner.x+CGFloat(thisX),corner.y+CGFloat(thisY))

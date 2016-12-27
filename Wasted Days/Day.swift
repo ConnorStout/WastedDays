@@ -14,7 +14,9 @@ class Day{
     var tasks:[String]
     var types:[Int]
     var yearMonthDay:Int
-    init(year:Int, month:Int, day:Int){
+    var goals:[String]
+    var goalsDone:[String]
+    init(year:Int, month:Int, day:Int, goals:String, goalsDone:String){
         self.year = year
         self.month = month
         tasks = []
@@ -40,6 +42,9 @@ class Day{
             monthString = String(month)
         }
         self.yearMonthDay = Int((String(year)+monthString+dayString))!
+        self.goals = [""]
+        self.goalsDone = [""]
+        
     }
     init(yearMonthDay:Int){
         
@@ -60,6 +65,8 @@ class Day{
         self.day = Int("\(splitString[6])\(splitString[7])")!
         
         self.yearMonthDay = yearMonthDay
+        self.goals = []
+        self.goalsDone = []
     }
     func addTask(task:String, type:Int, hour:Int){
         tasks[hour] = task
@@ -75,6 +82,14 @@ class Day{
             
             return false
         }
+        
+    }
+    func setGoals(rawGoals:String){
+        
+        
+    }
+    func setGoalsDone(rawGoalsDone:String){
+        
         
     }
     

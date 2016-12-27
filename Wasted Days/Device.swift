@@ -15,4 +15,5 @@ class Device : NSManagedObject{
     @NSManaged var task: String
     @NSManaged var type: Int32
     @NSManaged var hour: Int32
+
 }

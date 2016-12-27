@@ -129,6 +129,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         
+        let fetch2:NSFetchRequest = NSFetchRequest(entityName: "Goals")
+        var retrieved2 = []
+        
+        do{
+            retrieved2 = try managedObjectContext.executeFetchRequest(fetch2) as! [Goals]
+            
+        } catch {
+            print(error)
+            
+        }
+        
+        for (var i = 0; i<retrieved2.count;i++){
+            let index:Int = doesDayExist(Int(retrieved2[i].valueForKeyPath("yearMonthDay")! as! NSNumber))
+            
+            if(index == (-1)){
+                
+            }else{
+                allDays[index].setGoals(String(retrieved2[i].valueForKeyPath("goals")! as! NSString))
+                allDays[index].setGoalsDone(String(retrieved2[i].valueForKeyPath("goalsDone")! as! NSString))
+            }
+            
+            
+            
+        }
+        
       
     }
     func doesDayExist(input:Int)->Int{
@@ -172,6 +197,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 saved.setValue(self.allDays[i].types[j], forKey: "type")
                 
             }
+            
             
         }
         var error : NSError? = nil
