@@ -19,9 +19,10 @@ class Day{
     init(year:Int, month:Int, day:Int, goals:String, goalsDone:String){
         self.year = year
         self.month = month
+        
         tasks = []
         types = []
-        for(var i = 0; i<24;i++){
+        for i in 0 ..< 24 {
             tasks[i] = "empty"
             types[i] = 7
         }
@@ -58,7 +59,7 @@ class Day{
         self.month = Int("\(splitString[4])\(splitString[5])")!
         tasks = []
         types = []
-        for(var i = 0; i<24;i++){
+        for _ in 0 ..< 24 {
             tasks.append("empty")
             types.append(7)
         }
@@ -68,13 +69,13 @@ class Day{
         self.goals = []
         self.goalsDone = []
     }
-    func addTask(task:String, type:Int, hour:Int){
+    func addTask(_ task:String, type:Int, hour:Int){
         tasks[hour] = task
         types[hour] = type
         
         
     }
-    func isEqual(day:Day)->Bool{
+    func isEqual(_ day:Day)->Bool{
         if(self.yearMonthDay==day.yearMonthDay){
             return true
             
@@ -84,11 +85,11 @@ class Day{
         }
         
     }
-    func setGoals(rawGoals:String){
+    func setGoals(_ rawGoals:String){
         
         
     }
-    func setGoalsDone(rawGoalsDone:String){
+    func setGoalsDone(_ rawGoalsDone:String){
         
         
     }

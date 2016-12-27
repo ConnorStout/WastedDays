@@ -9,10 +9,10 @@
 import UIKit
 
 class ChangeTypeView: UIView, UIGestureRecognizerDelegate {
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var nameArray:[String] = ["sleep", "study","workout", "personal development", "work", "eat","relax/social", "waste"]
     var midLocation:CGPoint = CGPoint(x: 0, y: 0)
-    var superFrame:CGRect = CGRectMake(0, 0, 0, 0)
+    var superFrame:CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
     var sentView:UIView = UIView()
     var currIndex:Int = 0
    
@@ -25,11 +25,11 @@ class ChangeTypeView: UIView, UIGestureRecognizerDelegate {
         self.currIndex = currIndex
         super.init(frame: newFrame)
         superFrame = frame
-        var midY = frame.height / 2
-        var midX = frame.width / 2
+        let midY = frame.height / 2
+        let midX = frame.width / 2
         midLocation = CGPoint(x: midX, y: midY)
         self.center = CGPoint(x: midX, y: midY+frame.height)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
      
         //sender.backgroundColor = UIColor.redColor()'
         animateEntrance()
@@ -37,29 +37,29 @@ class ChangeTypeView: UIView, UIGestureRecognizerDelegate {
         
     }
     init() {
-        super.init(frame:CGRectMake(0, 0, 0, 0))
+        super.init(frame:CGRect(x: 0, y: 0, width: 0, height: 0))
         
     }
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
 
-        for(var i = 0;i<nameArray.count;i++){
-            var label = UILabel(frame: CGRectMake(self.center.x,CGFloat(0+10*i), self.frame.width,self.frame.height/CGFloat(nameArray.count)))
-            label.center = CGPointMake(self.frame.size.width  / 2,
-                CGFloat(label.frame.size.height/2.0+CGFloat(label.frame.size.height*CGFloat(i))));
-            label.textAlignment = NSTextAlignment.Center
-            label.font = label.font.fontWithSize(15)
-            label.textColor = UIColor.whiteColor()
-            let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
+        for i in 0 ..< nameArray.count {
+            let label = UILabel(frame: CGRect(x: self.center.x,y: CGFloat(0+10*i), width: self.frame.width,height: self.frame.height/CGFloat(nameArray.count)))
+            label.center = CGPoint(x: self.frame.size.width  / 2,
+                y: CGFloat(label.frame.size.height/2.0+CGFloat(label.frame.size.height*CGFloat(i))));
+            label.textAlignment = NSTextAlignment.center
+            label.font = label.font.withSize(15)
+            label.textColor = UIColor.white
+            let tap = UITapGestureRecognizer(target: self, action: #selector(ChangeTypeView.handleTap(_:)))
             label.addGestureRecognizer(tap)
             tap.delegate = self
             
-            var a = nameArray[i]
-            var c = ColorObject()
+            let a = nameArray[i]
+            let c = ColorObject()
             
             label.backgroundColor=c.pieArray()[i]
             label.text = a;
             
-            label.userInteractionEnabled = true
+            label.isUserInteractionEnabled = true
             label.tag = i
             self.addSubview(label)
         }
@@ -70,7 +70,7 @@ class ChangeTypeView: UIView, UIGestureRecognizerDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     func animateEntrance(){
-        UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
             
             
     
@@ -81,14 +81,14 @@ class ChangeTypeView: UIView, UIGestureRecognizerDelegate {
         
         
     }
-    func handleTap(sender: UITapGestureRecognizer? = nil) {
+    func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         
-        var a = nameArray[(sender?.view!.tag)!]
+        let a = nameArray[(sender?.view!.tag)!]
         print("sender:\(sender?.view!.tag)")
         appDelegate.allDays[currIndex].types[Int((sentView.tag))] = (sender?.view!.tag)!
         
-        var i = getNameNumber(a)
-        var c = ColorObject()
+        let i = getNameNumber(a)
+        let c = ColorObject()
         sentView.backgroundColor = c.pieArray()[i]
             
             
@@ -102,7 +102,7 @@ class ChangeTypeView: UIView, UIGestureRecognizerDelegate {
         
         
     }
-    func getNameNumber(input:String)->Int{
+    func getNameNumber(_ input:String)->Int{
         var i=0;
         for x in nameArray{
             
@@ -118,7 +118,7 @@ class ChangeTypeView: UIView, UIGestureRecognizerDelegate {
     
     func animateExit(){
         
-        UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
             
             
             self.center = CGPoint(x: self.midLocation.x,y: self.midLocation.y-self.superFrame.height)

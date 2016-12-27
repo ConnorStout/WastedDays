@@ -36,11 +36,11 @@ class ColorObject {
     
     
     func pieArray()->[UIColor]{
-        let returnColors:[UIColor]=[secondary,secondaryN,secondary2N, primaryLi, secondary2L, secondaryL, secondaryD, UIColor.grayColor()]
+        let returnColors:[UIColor]=[secondary,secondaryN,secondary2N, primaryLi, secondary2L, secondaryL, secondaryD, UIColor.gray]
         
         return returnColors
     }
-    func getNumber(input: UIColor)->Int{
+    func getNumber(_ input: UIColor)->Int{
         var inc = 0;
         for x in self.pieArray(){
             

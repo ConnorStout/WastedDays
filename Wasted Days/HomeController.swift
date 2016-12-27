@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSource {
-    let appDel = UIApplication.sharedApplication().delegate as! AppDelegate
+    let appDel = UIApplication.shared.delegate as! AppDelegate
     var percentages:[Double] = []
     let c = ColorObject()
     let df = DateFormatter()
@@ -28,28 +28,28 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
         print("got into home")
         super.viewDidLoad()
         self.view.backgroundColor = c.primary
-        let dateFormatter = NSDateFormatter()
-        let date = NSDate()
+        let dateFormatter = Foundation.DateFormatter()
+        let date = Date()
         today = df.getCurrYearMonthDay()
         df.possiblyAddNewDay(today)
         print("today here is\(today)")
         // US English Locale (en_US)
         dateFormatter.dateFormat = "EEEE MMMM dd, yyyy"
 
-        homeLabel.text = dateFormatter.stringFromDate(date)
+        homeLabel.text = dateFormatter.string(from: date)
      
       
 
        
         // Do any additional setup after loading the view, typically from a nib.
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         chart.removeFromSuperview()
         getPieChartValues(chartState)
         chart = PieChart(frame: self.view.frame,percentage: percentages,names: names,color: colors)
         self.pieView.addSubview(chart)
  
-        chart.userInteractionEnabled = false
+        chart.isUserInteractionEnabled = false
      
 
       
@@ -61,7 +61,7 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func getPieChartValues(howManyDays:Int){
+    func getPieChartValues(_ howManyDays:Int){
         names.removeAll()
         percentages.removeAll()
         colors.removeAll()
@@ -72,19 +72,19 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
             print(today)
             df.possiblyAddNewDay(today)
             print("howManyDays\(howManyDays)")
-            for(var j = 0;j<howManyDays;j++){
-                    var thisDayIndex = df.getIndexOfRelativeDay(today, daysBack: j, forward: false)
+        for j in 0..<howManyDays {
+                    let thisDayIndex = df.getIndexOfRelativeDay(today, daysBack: j, forward: false)
                     print(thisDayIndex)
-                for(var i = 0;i<24;i++){
+            for i in 0 ..< 24 {
                     
                     if(thisDayIndex == -1){
                         
                     }else{
                  
-                    var thisTask = appDel.allDays[thisDayIndex].types[i]
-                    numberOfDays++
+                    let thisTask = appDel.allDays[thisDayIndex].types[i]
+                    numberOfDays += 1
                     if(colors.contains(thisTask)){
-                        colorsCount[colors.indexOf(thisTask)!]+=1 //= colorsCount[names.indexOf(thisTask)!]+1
+                        colorsCount[colors.index(of: thisTask)!]+=1 //= colorsCount[names.indexOf(thisTask)!]+1
                         
                     }else{
                         colors.append(thisTask)
@@ -101,8 +101,8 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
         setPercentage(Double(numberOfDays))
         print("fff\(numberOfDays)")
     }
-    func setPercentage(number:Double){
-        for(var i = 0;i<colorsCount.count;i++){
+    func setPercentage(_ number:Double){
+        for i in 0..<colorsCount.count {
             percentages.append(Double(colorsCount[i])/(number))
             
         }
@@ -110,14 +110,14 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
         
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return pieView.frame.size.height/6
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         return cell!
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let currIndex = df.getDayIndex(today)
         return appDel.allDays[currIndex].goals.count
     }
@@ -130,7 +130,7 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
     
     
     
-    func getNameFromColor(a:Int)->String{
+    func getNameFromColor(_ a:Int)->String{
         
         if(a==0){
             return "sleep"
@@ -164,15 +164,15 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     
-    @IBAction func changeChart(sender: UIButton) {
-        var newValue = sender.tag
+    @IBAction func changeChart(_ sender: UIButton) {
+        let newValue = sender.tag
         if(chartState != newValue){
             chartState = newValue
             chart.removeFromSuperview()
             getPieChartValues(chartState)
             chart = PieChart(frame: self.view.frame,percentage: percentages,names: names,color: colors)
             self.pieView.addSubview(chart)
-            chart.userInteractionEnabled = false
+            chart.isUserInteractionEnabled = false
         }
         print("her")
         

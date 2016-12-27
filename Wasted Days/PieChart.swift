@@ -21,7 +21,7 @@ class PieChart: UIView {
     var chartCenter:CGPoint = CGPoint()
     init(frame: CGRect, percentage:[Double],names:[String], color:[Int]) {
         super.init(frame: frame)
-        var c = ColorObject()
+        let c = ColorObject()
         colorScheme = c.pieArray()
         if(color.count>0){
             hasKey = true
@@ -33,12 +33,12 @@ class PieChart: UIView {
         self.backgroundColor = UIColor(white: 1, alpha: 0.5)
         centerX = Double(self.frame.width*(4/6))
         centerY = Double(radius+10)
-        chartCenter = CGPointMake(CGFloat(centerX), CGFloat(centerY))
+        chartCenter = CGPoint(x: CGFloat(centerX), y: CGFloat(centerY))
         self.frame.size.height = (self.frame.size.height/3)
  
     }
     init(frame: CGRect, percentage:[Double], color:[Int]) {
-        var c = ColorObject()
+        let c = ColorObject()
         colorScheme = c.pieArray()
         hasKey = true
         super.init(frame: frame)
@@ -48,7 +48,7 @@ class PieChart: UIView {
         self.backgroundColor = UIColor(white: 1, alpha: 0.5)
         centerX = Double(self.center.x)
         centerY = Double(radius+10)
-        chartCenter = CGPointMake(CGFloat(centerX), CGFloat(centerY))
+        chartCenter = CGPoint(x: CGFloat(centerX), y: CGFloat(centerY))
         self.frame.size.height = (self.frame.size.height/3)
         
     }
@@ -61,7 +61,7 @@ class PieChart: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         // Drawing code
         
         
@@ -75,26 +75,26 @@ class PieChart: UIView {
     func drawLines() {
         var totalAngle:CGFloat = 0
         
-        for(var i = 0;i<percentages.count;i++){
+        for i in 0 ..< percentages.count {
             
-            var thisAngle = percentages[i]*2*M_PI
-            var myBezier = UIBezierPath()
+            let thisAngle = percentages[i]*2*M_PI
+            let myBezier = UIBezierPath()
            
-            myBezier.moveToPoint(chartCenter)
-            myBezier.addArcWithCenter(chartCenter, radius:CGFloat(radius), startAngle:totalAngle, endAngle: CGFloat(thisAngle)+totalAngle, clockwise:true)
+            myBezier.move(to: chartCenter)
+            myBezier.addArc(withCenter: chartCenter, radius:CGFloat(radius), startAngle:totalAngle, endAngle: CGFloat(thisAngle)+totalAngle, clockwise:true)
             totalAngle+=CGFloat(thisAngle)
-            myBezier.closePath()
+            myBezier.close()
             
             let layer = CAShapeLayer()
             
-            layer.path = myBezier.CGPath
+            layer.path = myBezier.cgPath
           
-            var thisColor = getColor(colors[i])
-            layer.fillColor = thisColor.CGColor
+            let thisColor = getColor(colors[i])
+            layer.fillColor = thisColor.cgColor
             if(percentages.count != 1){
-                layer.strokeColor = UIColor.whiteColor().CGColor
+                layer.strokeColor = UIColor.white.cgColor
             }else{
-                layer.strokeColor = UIColor.grayColor().CGColor
+                layer.strokeColor = UIColor.gray.cgColor
             }
             self.layer.addSublayer(layer)
             
@@ -104,44 +104,44 @@ class PieChart: UIView {
     
     
     func addKey(){
-        var corner = CGPoint(x: frame.origin.x+40, y: frame.origin.y+20)
+        let corner = CGPoint(x: frame.origin.x+40, y: frame.origin.y+20)
         
         
-        for(var i = 0;i<names.count;i++){
-            var thisY = 25.0*Double(i)
+        for i in 0 ..< names.count {
+            let thisY = 25.0*Double(i)
        
-            var thisX = 0
+            let thisX = 0
          
             let context = UIGraphicsGetCurrentContext()
-            CGContextSetLineWidth(context, 20.0)
-            CGContextMoveToPoint(context, corner.x+CGFloat(thisX),corner.y+CGFloat(thisY))
-            var thisColor = getColor(colors[i])
+            context?.setLineWidth(20.0)
+            context?.move(to: CGPoint(x: corner.x+CGFloat(thisX), y: corner.y+CGFloat(thisY)))
+            let thisColor = getColor(colors[i])
             
-            CGContextSetStrokeColorWithColor(context, thisColor.CGColor)
-            CGContextAddLineToPoint(context,corner.x+CGFloat(thisX),corner.y+CGFloat(thisY+20))
-            CGContextStrokePath(context)
+            context?.setStrokeColor(thisColor.cgColor)
+            context?.addLine(to: CGPoint(x: corner.x+CGFloat(thisX), y: corner.y+CGFloat(thisY+20)))
+            context?.strokePath()
             
-            var label = UILabel(frame: CGRectMake(corner.x+20+CGFloat(thisX),corner.y+CGFloat(thisY), 110, 21))
+            let label = UILabel(frame: CGRect(x: corner.x+20+CGFloat(thisX),y: corner.y+CGFloat(thisY), width: 110, height: 21))
             
-            label.textAlignment = NSTextAlignment.Left
+            label.textAlignment = NSTextAlignment.left
             label.text = names[i]
-            label.font = label.font.fontWithSize(15)
+            label.font = label.font.withSize(15)
             label.textColor = c.primaryD
             self.addSubview(label)
         }
         
     }
-    func calculateNewX(angle:Double)->CGFloat{
-        var ratio = cos(angle)
+    func calculateNewX(_ angle:Double)->CGFloat{
+        let ratio = cos(angle)
         return CGFloat(centerX+(ratio*radius))
         
     }
-    func calculateNewY(angle:Double)->CGFloat{
-        var ratio = sin(angle)
+    func calculateNewY(_ angle:Double)->CGFloat{
+        let ratio = sin(angle)
         return CGFloat(centerY-(ratio*radius))
         
     }
-    func getColor(a:Int)->UIColor{
+    func getColor(_ a:Int)->UIColor{
         
             return colorScheme[a]
             

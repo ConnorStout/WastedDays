@@ -25,9 +25,12 @@
 		6CBEC14B1D766A2A00DBE1C8 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBEC14A1D766A2A00DBE1C8 /* HomeController.swift */; };
 		6CBEC1B51D77E43B00DBE1C8 /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBEC1B41D77E43B00DBE1C8 /* PieChart.swift */; };
 		6CBEC1B71D77E7A100DBE1C8 /* ChangeTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBEC1B61D77E7A100DBE1C8 /* ChangeTypeView.swift */; };
+		E31C6C240B0657C12BD3C2D1 /* Pods_Wasted_Days.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13DF597B4BD850C4C0EFE7F1 /* Pods_Wasted_Days.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13DF597B4BD850C4C0EFE7F1 /* Pods_Wasted_Days.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wasted_Days.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		57BC8053CF2DB86F8A6FD607 /* Pods-Wasted Days.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wasted Days.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wasted Days/Pods-Wasted Days.debug.xcconfig"; sourceTree = "<group>"; };
 		6C5AF3491D7F4990001D9BFC /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		6C835D771D2B119D0041E0E6 /* Wasted Days.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wasted Days.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C835D7A1D2B119D0041E0E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -48,6 +51,7 @@
 		6CBEC14A1D766A2A00DBE1C8 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		6CBEC1B41D77E43B00DBE1C8 /* PieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
 		6CBEC1B61D77E7A100DBE1C8 /* ChangeTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeTypeView.swift; sourceTree = "<group>"; };
+		87A6A26D9BA709A9E6840FCC /* Pods-Wasted Days.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wasted Days.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wasted Days/Pods-Wasted Days.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,17 +59,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E31C6C240B0657C12BD3C2D1 /* Pods_Wasted_Days.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3FF27930C1ADA2B57F10F8A2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				13DF597B4BD850C4C0EFE7F1 /* Pods_Wasted_Days.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4304403FBFADC4C916199B7F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				57BC8053CF2DB86F8A6FD607 /* Pods-Wasted Days.debug.xcconfig */,
+				87A6A26D9BA709A9E6840FCC /* Pods-Wasted Days.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		6C835D6E1D2B119D0041E0E6 = {
 			isa = PBXGroup;
 			children = (
 				6C835D791D2B119D0041E0E6 /* Wasted Days */,
 				6C835D781D2B119D0041E0E6 /* Products */,
+				4304403FBFADC4C916199B7F /* Pods */,
+				3FF27930C1ADA2B57F10F8A2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,9 +134,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6C835D8C1D2B119D0041E0E6 /* Build configuration list for PBXNativeTarget "Wasted Days" */;
 			buildPhases = (
+				2660440850F366E976FBD7F6 /* [CP] Check Pods Manifest.lock */,
 				6C835D731D2B119D0041E0E6 /* Sources */,
 				6C835D741D2B119D0041E0E6 /* Frameworks */,
 				6C835D751D2B119D0041E0E6 /* Resources */,
+				FF0B3EB7A6547FE2E1CF881E /* [CP] Embed Pods Frameworks */,
+				789342B0A5BB9CE53618C358 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -136,6 +163,7 @@
 					6C835D761D2B119D0041E0E6 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = CL34E8X5T2;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -169,6 +197,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2660440850F366E976FBD7F6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		789342B0A5BB9CE53618C358 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wasted Days/Pods-Wasted Days-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF0B3EB7A6547FE2E1CF881E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Wasted Days/Pods-Wasted Days-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6C835D731D2B119D0041E0E6 /* Sources */ = {
@@ -298,6 +374,7 @@
 		};
 		6C835D8D1D2B119D0041E0E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57BC8053CF2DB86F8A6FD607 /* Pods-Wasted Days.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Connor Stout (CL34E8X5T2)";
@@ -306,12 +383,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Unanonymous.Wasted-Days";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		6C835D8E1D2B119D0041E0E6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 87A6A26D9BA709A9E6840FCC /* Pods-Wasted Days.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Connor Stout (CL34E8X5T2)";
@@ -320,6 +399,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Unanonymous.Wasted-Days";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

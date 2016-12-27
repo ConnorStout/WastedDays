@@ -15,32 +15,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var allDays:[Day] = []
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         saveToUserDefaults()
         
         return true
     }
 
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveToCoreData()
@@ -49,31 +49,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data stack
 
-    lazy var applicationDocumentsDirectory: NSURL = {
+    lazy var applicationDocumentsDirectory: URL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "Unanonymous.Wasted_Days" in the application's documents Application Support directory.
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count-1]
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("Wasted_Days", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
+        let modelURL = Bundle.main.url(forResource: "Wasted_Days", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
     }()
 
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SingleViewCoreData.sqlite")
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("SingleViewCoreData.sqlite")
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
         } catch {
             // Report any error we got.
             var dict = [String: AnyObject]()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject?
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject?
 
             dict[NSUnderlyingErrorKey] = error as NSError
             let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
@@ -89,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var managedObjectContext: NSManagedObjectContext = {
         // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
         let coordinator = self.persistentStoreCoordinator
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
     }()
@@ -98,56 +98,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func saveToUserDefaults() {
-        let fetch:NSFetchRequest = NSFetchRequest(entityName: "Device")
-        var retrieved = []
+        
+        let fetch:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Device")
+        var retrieved:[Device] = []
      
         do{
-            retrieved = try managedObjectContext.executeFetchRequest(fetch) as! [Device]
+            retrieved = try managedObjectContext.fetch(fetch) as! [Device]
             
         } catch {
             print(error)
             
         }
-       
-        for (var i = 0; i<retrieved.count;i++){
-            let index:Int = doesDayExist(Int(retrieved[i].valueForKeyPath("yearMonthDay")! as! NSNumber))
+        print(retrieved.count)
+        for i in 0..<retrieved.count {
+            
+            let index:Int = doesDayExist(Int((retrieved[i] as AnyObject).value(forKeyPath: "yearMonthDay")! as! NSNumber))
                 
             if(index == (-1)){
-                var newDay:Day = Day(yearMonthDay: Int(retrieved[i].valueForKeyPath("yearMonthDay")! as! NSNumber))
-                let hour:Int = Int(retrieved[i].valueForKeyPath("hour")! as! NSNumber)
-                newDay.types[hour] = Int(retrieved[i].valueForKeyPath("type")! as! NSInteger)
-                newDay.tasks[hour] = String(retrieved[i].valueForKeyPath("task")! as! NSString)
+                let newDay:Day = Day(yearMonthDay: Int((retrieved[i] as AnyObject).value(forKeyPath: "yearMonthDay")! as! NSNumber))
+                let hour:Int = Int((retrieved[i] as AnyObject).value(forKeyPath: "hour")! as! NSNumber)
+                newDay.types[hour] = Int((retrieved[i] as AnyObject).value(forKeyPath: "type")! as! NSInteger)
+                newDay.tasks[hour] = String((retrieved[i] as AnyObject).value(forKeyPath: "task")! as! NSString)
                 allDays.append(newDay)
                 
             }else{
-                let hour:Int = Int(retrieved[i].valueForKeyPath("hour")! as! NSNumber)
-                allDays[index].tasks[hour] = String(retrieved[i].valueForKeyPath("task")! as! NSString)
-                allDays[index].types[hour] = Int(retrieved[i].valueForKeyPath("type")! as! NSInteger)
+                let hour:Int = Int((retrieved[i] as AnyObject).value(forKeyPath: "hour")! as! NSNumber)
+                allDays[index].tasks[hour] = String((retrieved[i] as AnyObject).value(forKeyPath: "task")! as! NSString)
+                allDays[index].types[hour] = Int((retrieved[i] as AnyObject).value(forKeyPath: "type")! as! NSInteger)
             }
             
             
             
         }
         
-        let fetch2:NSFetchRequest = NSFetchRequest(entityName: "Goals")
-        var retrieved2 = []
+        //let fetch2:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Goals")
+        let fetch2:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Goals")
+        
+        var retrieved2:[Goals] = []
         
         do{
-            retrieved2 = try managedObjectContext.executeFetchRequest(fetch2) as! [Goals]
+            retrieved2 = try managedObjectContext.fetch(fetch2) as! [Goals]
             
         } catch {
             print(error)
             
         }
         
-        for (var i = 0; i<retrieved2.count;i++){
-            let index:Int = doesDayExist(Int(retrieved2[i].valueForKeyPath("yearMonthDay")! as! NSNumber))
+        for i in 0..<retrieved2.count {
+            
+      //for _ in 1...power {
+            let index:Int = doesDayExist(Int((retrieved2[i]).value(forKeyPath: "yearMonthDay")! as! NSNumber))
             
             if(index == (-1)){
                 
             }else{
-                allDays[index].setGoals(String(retrieved2[i].valueForKeyPath("goals")! as! NSString))
-                allDays[index].setGoalsDone(String(retrieved2[i].valueForKeyPath("goalsDone")! as! NSString))
+                allDays[index].setGoals(String((retrieved2[i] as AnyObject).value(forKeyPath: "goals")! as! NSString))
+                allDays[index].setGoalsDone(String((retrieved2[i] as AnyObject).value(forKeyPath: "goalsDone")! as! NSString))
             }
             
             
@@ -156,9 +162,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
       
     }
-    func doesDayExist(input:Int)->Int{
+    func doesDayExist(_ input:Int)->Int{
         
-        for(var i=0;i<allDays.count;i++){
+        for i in 0 ..< allDays.count {
             if(allDays[i].yearMonthDay==input){
                 return i;
                 
@@ -183,10 +189,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     func saveToCoreData(){
-        for(var i = 0;i<self.allDays.count;i++){
-            for(var j = 0; j<24; j++){
+        for i in 0...self.allDays.count {
+            for j in 0...24 {
               
-                let saved = NSEntityDescription.insertNewObjectForEntityForName("Device", inManagedObjectContext: self.managedObjectContext) 
+                let saved = NSEntityDescription.insertNewObject(forEntityName: "Device", into: self.managedObjectContext) 
        
                 saved.setValue(self.allDays[i].yearMonthDay, forKey: "yearMonthDay")
  
@@ -200,7 +206,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             
         }
-        var error : NSError? = nil
+        _ : NSError? = nil
         do {
             try managedObjectContext.save()
         } catch {

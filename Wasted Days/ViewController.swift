@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate{
-    var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var appDelegate = UIApplication.shared.delegate as! AppDelegate
     var currYearMonthDay:Int = 0
     var currIndex:Int = 0
     var changeViewOut = false
@@ -23,7 +23,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
     
     override func viewDidLoad() {
         if(currYearMonthDay == 0){
-            appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate = UIApplication.shared.delegate as! AppDelegate
             currYearMonthDay = df.getCurrYearMonthDay()
             currIndex = df.getDayIndex(currYearMonthDay)
             df.possiblyAddNewDay(currYearMonthDay)
@@ -55,7 +55,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
     
         
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
     }
 
@@ -64,11 +64,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
         // Dispose of any resources that can be recreated.
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 24
     }
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! TimeCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! TimeCell
         
         
    
@@ -91,7 +91,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
         
         
         cell.timeLabel.text = labelString
-        cell.timeLabel.textColor = UIColor.whiteColor()
+        cell.timeLabel.textColor = UIColor.white
         //task
         
         cell.tag = indexPath.row
@@ -104,14 +104,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
       
         
         
-        var pressed = UILongPressGestureRecognizer(target: self, action: "longPressed:")
+        let pressed = UILongPressGestureRecognizer(target: self, action: #selector(ViewController.longPressed(_:)))
         
         cell.addGestureRecognizer(pressed)
-        cell.userInteractionEnabled = true
+        cell.isUserInteractionEnabled = true
         
         return cell
     }
-    func collectionView(collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAtIndexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,sizeForItemAtIndexPath: IndexPath) -> CGSize {
         
         return CGSize(width: self.view.frame.width/4-(inset*3), height: self.view.frame.width/4-(inset*3))
     }
@@ -182,7 +182,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
     }
     */
 
-    @IBAction func leftButton(sender: AnyObject) {
+    @IBAction func leftButton(_ sender: AnyObject) {
         currYearMonthDay = df.previousDay(currYearMonthDay);
         df.possiblyAddNewDay(currYearMonthDay)
         currIndex = df.getDayIndex(currYearMonthDay)
@@ -192,7 +192,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
     }
     
     
-    @IBAction func rightButton(sender: AnyObject) {
+    @IBAction func rightButton(_ sender: AnyObject) {
         currYearMonthDay = df.nextDay(currYearMonthDay)
         df.possiblyAddNewDay(currYearMonthDay)
         currIndex = df.getDayIndex(currYearMonthDay)
@@ -204,22 +204,22 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
     
    
     func updateLabel(){
-        var labelString:String = ("\(appDelegate.allDays[currIndex].month)/\(appDelegate.allDays[currIndex].day)/\(appDelegate.allDays[currIndex].year)")
+        let labelString:String = ("\(appDelegate.allDays[currIndex].month)/\(appDelegate.allDays[currIndex].day)/\(appDelegate.allDays[currIndex].year)")
         
 
         dateLabel?.text = labelString
         
     }
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         
         appDelegate.allDays[currIndex].tasks[Int(textField.tag)] = textField.text!
     }
-    @IBAction func longPressed(sender: UILongPressGestureRecognizer)
+    @IBAction func longPressed(_ sender: UILongPressGestureRecognizer)
     {
 
         
         if(!self.view.subviews.contains(currChangeType)){
-            var newChangeView = (ChangeTypeView(frame: self.view.frame,sender: sender.view!,currIndex:currIndex))
+            let newChangeView = (ChangeTypeView(frame: self.view.frame,sender: sender.view!,currIndex:currIndex))
             
             currChangeType = newChangeView
             view.addSubview(newChangeView)
@@ -231,15 +231,15 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
     }
   
 
-    func getColor(a:Int)->UIColor{
-        var colorScheme = ColorObject()
+    func getColor(_ a:Int)->UIColor{
+        let colorScheme = ColorObject()
         return colorScheme.pieArray()[a]
         
     }
     
-    func getNumberFromColor(a:UIColor)->Int{
+    func getNumberFromColor(_ a:UIColor)->Int{
         
-        var c = ColorObject()
+        let c = ColorObject()
         return c.getNumber(a)
     }
 

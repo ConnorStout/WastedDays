@@ -9,19 +9,20 @@ import Foundation
 import UIKit
 
 class DateFormatter {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    func nextDay(var yearMonthDay:Int)->Int{
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    func nextDay(_ yearMonthDay:Int)->Int{
+        var yearMonthDay = yearMonthDay
         
         let stringDate = String(yearMonthDay)
         var splitString = Array(stringDate.characters)
         //2016.08.26
         var yearStr = ("\(splitString[0])\(splitString[1])")
         yearStr += ("\(splitString[2])\(splitString[3])")
-        var year = Int(yearStr)!
-        var month = Int("\(splitString[4])\(splitString[5])")!
-        var day = Int("\(splitString[6])\(splitString[7])")!
+        let year = Int(yearStr)!
+        let month = Int("\(splitString[4])\(splitString[5])")!
+        let day = Int("\(splitString[6])\(splitString[7])")!
         
-        var isLeap = isYearLeapYear(year)
+        let isLeap = isYearLeapYear(year)
         print("ISLEAP\(isLeap)")
         
         //20161225
@@ -88,17 +89,18 @@ class DateFormatter {
        
         
     }
-    func previousDay(var yearMonthDay:Int)->Int{
+    func previousDay(_ yearMonthDay:Int)->Int{
+        var yearMonthDay = yearMonthDay
         let stringDate = String(yearMonthDay)
         var splitString = Array(stringDate.characters)
         //2016.08.26
         var yearStr = ("\(splitString[0])\(splitString[1])")
         yearStr += ("\(splitString[2])\(splitString[3])")
-        var year = Int(yearStr)!
-        var month = Int("\(splitString[4])\(splitString[5])")!
-        var day = Int("\(splitString[6])\(splitString[7])")!
+        let year = Int(yearStr)!
+        let month = Int("\(splitString[4])\(splitString[5])")!
+        let day = Int("\(splitString[6])\(splitString[7])")!
         
-        var isLeap = isYearLeapYear(year)
+        let isLeap = isYearLeapYear(year)
         print("ISLEAP\(isLeap)")
         
         //20161225
@@ -152,22 +154,22 @@ class DateFormatter {
         
     }
     
-    func isYearLeapYear(year:Int)->Bool {
+    func isYearLeapYear(_ year:Int)->Bool {
         
         return (( year%100 != 0) && (year%4 == 0)) || year%400 == 0;
     }
-    func possiblyAddNewDay(yearMonthDay:Int)->Int{
+    func possiblyAddNewDay(_ yearMonthDay:Int)->Int{
         if(!doesDayExist(yearMonthDay)){
-            var newDay:Day = Day(yearMonthDay:yearMonthDay);
+            let newDay:Day = Day(yearMonthDay:yearMonthDay);
             self.appDelegate.allDays.append(newDay)
             return appDelegate.allDays.count-1
         }else{
             return getDayIndex(yearMonthDay)
         }
     }
-    func doesDayExist(yearMonthDay:Int)->Bool{
+    func doesDayExist(_ yearMonthDay:Int)->Bool{
         
-        for(var i=0;i<appDelegate.allDays.count;i++){
+        for i in 0 ..< appDelegate.allDays.count {
             if(appDelegate.allDays[i].yearMonthDay==yearMonthDay){
                 return true;
                 
@@ -178,9 +180,9 @@ class DateFormatter {
         return false
         
     }
-    func getDayIndex(yearMonthDay:Int)->Int{
+    func getDayIndex(_ yearMonthDay:Int)->Int{
         
-        for(var i=0;i<appDelegate.allDays.count;i++){
+        for i in 0 ..< appDelegate.allDays.count {
             if(appDelegate.allDays[i].yearMonthDay==yearMonthDay){
                 return i;
                 
@@ -191,10 +193,10 @@ class DateFormatter {
         return -1
         
     }
-    func getIndexOfRelativeDay(currDay: Int, daysBack:Int, forward:Bool)-> Int{
+    func getIndexOfRelativeDay(_ currDay: Int, daysBack:Int, forward:Bool)-> Int{
         if(forward){
             var newDay = currDay
-            for(var i = 0; i<daysBack; i++){
+            for _ in 0 ..< daysBack {
                 newDay = nextDay(currDay)
                 
             }
@@ -202,7 +204,7 @@ class DateFormatter {
             
         }else{
             var newDay = currDay
-            for(var i = 0; i<daysBack; i++){
+            for _ in 0 ..< daysBack {
                 newDay = previousDay(newDay)
                 
             }
@@ -215,32 +217,34 @@ class DateFormatter {
     func getCurrYearMonthDay()->Int{
                         
         
-        let date = NSDate()
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Day , .Month , .Year], fromDate: date)
+        let date = Date()
+        let calendar = Calendar.current
+        let components = (calendar as NSCalendar).components([.day , .month , .year], from: date)
         
-        let year =  components.year
+        let year =  components.year!
         
-        let month = components.month
-        let day = components.day
+        let month = components.month!
+        let day = components.day!
         
         
         
         var dayString:String
         var monthString:String
         if(day<10){
-            dayString = ("0"+String(day))
+            dayString = ("0"+String(describing: day))
             
         }else{
-            dayString = String(day)
+            dayString = String(describing: day)
         }
         if(month<10){
-            monthString = ("0"+String(month))
+            monthString = ("0"+String(describing: month))
             
         }else{
-            monthString = String(month)
+            monthString = String(describing: month)
         }
-        return Int((String(year)+monthString+dayString))!
+        print("\(year) \(month) \(day)")
+        print(String(describing: year)+monthString+dayString)
+        return Int((String(describing: year)+monthString+dayString))!
     }
     
     
