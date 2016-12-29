@@ -116,6 +116,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UICollectionViewDat
         return CGSize(width: self.view.frame.width/4-(inset*3), height: self.view.frame.width/4-(inset*3))
     }
     
+    
+    
    
 
     

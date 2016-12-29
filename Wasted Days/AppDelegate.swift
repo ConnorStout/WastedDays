@@ -98,18 +98,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func saveToUserDefaults() {
+        print("got here")
+        let fetch: NSFetchRequest<Device>
         
-        let fetch:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Device")
-        var retrieved:[Device] = []
-     
-        do{
-            retrieved = try managedObjectContext.fetch(fetch) as! [Device]
-            
-        } catch {
-            print(error)
-            
+        if #available(iOS 10.0, OSX 10.12, *) {
+            print("ios 10")
+            fetch = NSFetchRequest<Device>(entityName: "Device")
+        } else {
+            fetch = NSFetchRequest(entityName: "Device")
         }
-        print(retrieved.count)
+        print("got here2")
+        var retrieved:[Device]  = []
+        
+        do{
+            print("got here3")
+          
+            retrieved = try managedObjectContext.fetch(fetch) 
+            print("got here4")
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        print("got here3")
+        print(retrieved)
         for i in 0..<retrieved.count {
             
             let index:Int = doesDayExist(Int((retrieved[i] as AnyObject).value(forKeyPath: "yearMonthDay")! as! NSNumber))
@@ -189,15 +200,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     func saveToCoreData(){
-        for i in 0...self.allDays.count {
-            for j in 0...24 {
-              
+        for i in 0..<self.allDays.count {
+            for j in 0..<24 {
+              print(self.allDays)
                 let saved = NSEntityDescription.insertNewObject(forEntityName: "Device", into: self.managedObjectContext) 
        
                 saved.setValue(self.allDays[i].yearMonthDay, forKey: "yearMonthDay")
  
                 saved.setValue(j, forKey: "hour")
-      
+             
                 saved.setValue(self.allDays[i].tasks[j], forKey: "task")
          
                 saved.setValue(self.allDays[i].types[j], forKey: "type")

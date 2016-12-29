@@ -20,7 +20,7 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
     var chart = PieChart()
     var chartState = 1
     var today = 0
-   
+    let dateFormatter = Foundation.DateFormatter()
     @IBOutlet var pieView: UIView!
     @IBOutlet var homeLabel: UILabel!
     @IBOutlet weak var barChartView: BarChartView!
@@ -29,12 +29,12 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
         print("got into home")
         super.viewDidLoad()
         self.view.backgroundColor = c.primary
-        let dateFormatter = Foundation.DateFormatter()
+     
         let date = Date()
         today = df.getCurrYearMonthDay()
        // lineChartView.noDataText = "You need to provide data for the chart."
        // lineChartView.backgroundColor = UIColor.black
-        df.possiblyAddNewDay(today)
+        _ = df.possiblyAddNewDay(today)
         print("today here is\(today)")
         // US English Locale (en_US)
         dateFormatter.dateFormat = "EEEE MMMM dd, yyyy"
@@ -43,8 +43,8 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
         let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
         let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0]
         
-        setChart(axis: months, values: unitsSold)
-       
+        setChart(axis: ["a","b", "c", "d", "e","f","g"], values: getBarChartValues())
+        print(getBarChartValues())
         
       // Do any additional setup after loading the view, typically from a nib.
     }
@@ -53,24 +53,21 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
     func setChart(axis: [String], values: [Double]) {
         
         var dataEntries: [BarChartDataEntry] = []
-        var dataEntries2: [BarChartDataEntry] = []
+    
         for i in 0..<values.count {
             let dataEntry = BarChartDataEntry(x: Double(i), y: values[i])
+            
             dataEntries.append(dataEntry)
         }
         
-        for i in 0..<values.count {
-            let dataEntry = BarChartDataEntry(x: Double(i), y: values[i]-1.0)
-            dataEntries2.append(dataEntry)
-        }
-        
+   
 
         
-        let lineChartDataSet = BarChartDataSet(values: dataEntries, label: "Units Sold")
-        let lineChartDataSet2 = BarChartDataSet(values: dataEntries2, label: "Units Soldd")
+        let lineChartDataSet = BarChartDataSet(values: dataEntries, label: "Sleep")
+        lineChartDataSet.colors = [c.secondary]
         
         
-        let lineChartData = BarChartData(dataSets: [lineChartDataSet,lineChartDataSet2])
+        let lineChartData = BarChartData(dataSet: lineChartDataSet)
         
         barChartView.data = lineChartData
         let formatter = MyAxisFormatter(axis: axis)
@@ -79,13 +76,17 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
         barChartView.drawGridBackgroundEnabled = true
         barChartView.gridBackgroundColor = NSUIColor.lightGray
         barChartView.chartDescription?.text = ""
+        barChartView.leftAxis.axisMinimum = 0
+        barChartView.leftAxis.axisMaximum = 10
+        barChartView.rightAxis.axisMinimum = 0
+        barChartView.rightAxis.axisMaximum = 10
     }
     override func viewWillAppear(_ animated: Bool) {
         chart.removeFromSuperview()
         getPieChartValues(chartState)
         chart = PieChart(frame: self.view.frame,percentage: percentages,names: names,color: colors)
         self.pieView.addSubview(chart)
- 
+        setChart(axis: getBarChartLabels(), values: getBarChartValues())
         chart.isUserInteractionEnabled = false
      
 
@@ -93,10 +94,54 @@ class HomeController : UIViewController, UITableViewDelegate, UITableViewDataSou
         
     
     }
+    func getBarChartValues()->[Double]{
+        var result:[Double] = []
+        var thisDay = today
+        var indexToday = df.getDayIndex(today)
+        for i in 0..<7 {
+            var thisAmount = 0
+            if(indexToday == -1){
+                
+            }else{
+                for j in 0..<24{
+        
+                
+                    var thisType = appDel.allDays[indexToday].types[j]
+                    if(thisType==0){
+                        thisAmount+=1
+                    }
+                
+                }
+            }
+            result.append(Double(thisAmount))
+            thisDay = df.previousDay(thisDay)
+            indexToday = df.getDayIndex(thisDay)
+        }
+        print(result)
+        return result.reversed()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func getBarChartLabels()->[String]{
+        var result:[String] = []
+        for i in 0..<7{
+            if(i == 0){
+                result.append("Today")
+            }else{
+                let thisFormatter = Foundation.DateFormatter()
+                thisFormatter.dateFormat = "EEEE"
+                let yesterday = NSCalendar.current.date(byAdding: .day, value: 0-i, to: Date())
+           
+            
+                result.append(thisFormatter.string(from: yesterday!))
+            }
+        
+        }
+        return result.reversed()
+        
     }
     func getPieChartValues(_ howManyDays:Int){
         names.removeAll()
