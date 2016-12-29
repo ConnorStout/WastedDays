@@ -206,7 +206,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             
         }
-        _ : NSError? = nil
+        var error : NSError? = nil
         do {
             try managedObjectContext.save()
         } catch {
