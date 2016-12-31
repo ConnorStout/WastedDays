@@ -168,6 +168,139 @@
             </objects>
             <point key="canvasLocation" x="-478.26086956521743" y="601.63043478260875"/>
         </scene>
+        <!--Goals-->
+        <scene sceneID="zOx-h5-pjT">
+            <objects>
+                <viewController title="Goals" id="VDJ-kw-IRd" customClass="GoalsViewController" customModule="Wasted_Days" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4l8-Dm-2sx"/>
+                        <viewControllerLayoutGuide type="bottom" id="cHk-nz-vSv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8Wn-fT-vUH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="urt-om-dSY">
+                                <rect key="frame" x="0.0" y="68" width="414" height="661"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bMc-w3-GHh">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Current Streak" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F8E-Oa-3Sk">
+                                                <rect key="frame" x="0.0" y="71" width="414" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="F8E-Oa-3Sk" firstAttribute="leading" secondItem="bMc-w3-GHh" secondAttribute="leading" id="NXh-nB-oTv"/>
+                                            <constraint firstAttribute="bottom" secondItem="F8E-Oa-3Sk" secondAttribute="bottom" id="OJh-Tz-2VV"/>
+                                            <constraint firstAttribute="height" constant="100" id="dsM-7K-ri5"/>
+                                            <constraint firstAttribute="trailing" secondItem="F8E-Oa-3Sk" secondAttribute="trailing" id="ryB-dI-5Gb"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bwK-ph-4ED">
+                                        <rect key="frame" x="0.0" y="100" width="414" height="200"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Today's Goals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47s-1c-DgL">
+                                                <rect key="frame" x="8" y="0.0" width="406" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="47s-1c-DgL" secondAttribute="trailing" id="762-B5-HpL"/>
+                                            <constraint firstItem="47s-1c-DgL" firstAttribute="leading" secondItem="bwK-ph-4ED" secondAttribute="leading" constant="10" id="X19-VJ-IYP"/>
+                                            <constraint firstAttribute="height" constant="200" id="o6L-c2-UVj"/>
+                                            <constraint firstItem="47s-1c-DgL" firstAttribute="top" secondItem="bwK-ph-4ED" secondAttribute="top" id="qKu-5l-hJ9"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RCI-Eo-Lmu">
+                                        <rect key="frame" x="0.0" y="300" width="414" height="361"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="All Goals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GXx-hr-ysp">
+                                                <rect key="frame" x="8" y="8" width="86" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="GXx-hr-ysp" firstAttribute="leading" secondItem="RCI-Eo-Lmu" secondAttribute="leading" constant="10" id="7Ba-e7-HPp"/>
+                                            <constraint firstItem="GXx-hr-ysp" firstAttribute="top" secondItem="RCI-Eo-Lmu" secondAttribute="top" id="aOB-YS-4ke"/>
+                                            <constraint firstAttribute="trailing" secondItem="GXx-hr-ysp" secondAttribute="trailing" id="h0t-6S-01O"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="bMc-w3-GHh" secondAttribute="trailing" id="MoM-Ct-HBh"/>
+                                    <constraint firstAttribute="trailing" secondItem="RCI-Eo-Lmu" secondAttribute="trailing" id="NR0-Ex-NvY"/>
+                                    <constraint firstItem="bMc-w3-GHh" firstAttribute="leading" secondItem="urt-om-dSY" secondAttribute="leading" id="be3-NL-Kvo"/>
+                                    <constraint firstItem="bwK-ph-4ED" firstAttribute="leading" secondItem="urt-om-dSY" secondAttribute="leading" id="eSk-6T-bsQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="RCI-Eo-Lmu" secondAttribute="bottom" id="hG3-th-TPK"/>
+                                    <constraint firstItem="RCI-Eo-Lmu" firstAttribute="leading" secondItem="urt-om-dSY" secondAttribute="leading" id="sCR-Pe-evx"/>
+                                    <constraint firstAttribute="trailing" secondItem="bwK-ph-4ED" secondAttribute="trailing" id="uzG-ID-b4J"/>
+                                </constraints>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7lw-NB-hai">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Goals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aa1-fX-miD">
+                                        <rect key="frame" x="8" y="52" width="57" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.64705882349999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="aa1-fX-miD" secondAttribute="bottom" constant="20" id="DUo-Wb-4aY"/>
+                                    <constraint firstAttribute="height" constant="75" id="sW3-eT-POs"/>
+                                    <constraint firstAttribute="trailing" secondItem="aa1-fX-miD" secondAttribute="trailing" id="tC6-6w-dLd"/>
+                                    <constraint firstItem="aa1-fX-miD" firstAttribute="leading" secondItem="7lw-NB-hai" secondAttribute="leading" constant="10" id="tpJ-JH-u7r"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="urt-om-dSY" secondAttribute="trailing" id="A72-c2-f3i"/>
+                            <constraint firstItem="urt-om-dSY" firstAttribute="leading" secondItem="8Wn-fT-vUH" secondAttribute="leading" id="CFQ-0Z-4I2"/>
+                            <constraint firstItem="urt-om-dSY" firstAttribute="top" secondItem="7lw-NB-hai" secondAttribute="bottom" id="DYh-2y-dsF"/>
+                            <constraint firstItem="cHk-nz-vSv" firstAttribute="top" secondItem="urt-om-dSY" secondAttribute="bottom" id="KC7-sp-fl1"/>
+                            <constraint firstItem="7lw-NB-hai" firstAttribute="top" secondItem="8Wn-fT-vUH" secondAttribute="top" id="Yqe-5X-dCf"/>
+                            <constraint firstAttribute="trailing" secondItem="7lw-NB-hai" secondAttribute="trailing" id="g2n-uy-sre"/>
+                            <constraint firstItem="7lw-NB-hai" firstAttribute="leading" secondItem="8Wn-fT-vUH" secondAttribute="leading" id="mwA-TQ-Fuz"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Goals" id="5TN-yp-VWu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Az-6b-hN4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="211.59420289855075" y="284.51086956521743"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="S7b-rL-EN5">
+            <objects>
+                <viewController id="aQq-U0-NOp" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="29E-gm-olg"/>
+                        <viewControllerLayoutGuide type="bottom" id="saF-8v-4sw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uJQ-S2-gDD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bz2-UT-Wxe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1192.753623188406" y="302.44565217391306"/>
+        </scene>
         <!--Day Schedue-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -262,7 +395,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Day Schedue" image="ios7-calendar" id="1zB-39-kaO"/>
+                    <tabBarItem key="tabBarItem" title="Day Schedue" image="ios7-calendar" selectedImage="ios7-calendar" id="1zB-39-kaO"/>
                     <connections>
                         <outlet property="dateLabel" destination="SHc-4S-JCb" id="foo-8Y-ci4"/>
                         <outlet property="timeCollection" destination="KtF-N8-Dcb" id="EjS-zS-uSH"/>
