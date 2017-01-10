@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
-<<<<<<< HEAD
    <FileRef
       location = "group:Wasted Days.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
-=======
->>>>>>> f2b8acc21bea96c818d9cbc1922eab7e2939c2f7
 </Workspace>
