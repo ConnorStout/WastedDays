@@ -23,6 +23,7 @@
                     <connections>
                         <segue destination="maZ-oj-siG" kind="relationship" relationship="viewControllers" id="Myz-CI-DLA"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="ubJ-yI-E07"/>
+                        <segue destination="VDJ-kw-IRd" kind="relationship" relationship="viewControllers" id="ziQ-oC-05L"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lxx-ku-55r" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -166,7 +167,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZl-T2-H7Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-478.26086956521743" y="601.63043478260875"/>
+            <point key="canvasLocation" x="-509" y="792"/>
         </scene>
         <!--Goals-->
         <scene sceneID="zOx-h5-pjT">
@@ -177,11 +178,11 @@
                         <viewControllerLayoutGuide type="bottom" id="cHk-nz-vSv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8Wn-fT-vUH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="urt-om-dSY">
-                                <rect key="frame" x="0.0" y="68" width="414" height="661"/>
+                                <rect key="frame" x="0.0" y="68" width="414" height="612"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bMc-w3-GHh">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
@@ -220,7 +221,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RCI-Eo-Lmu">
-                                        <rect key="frame" x="0.0" y="300" width="414" height="361"/>
+                                        <rect key="frame" x="0.0" y="300" width="414" height="312"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="All Goals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GXx-hr-ysp">
                                                 <rect key="frame" x="8" y="8" width="86" height="21"/>
@@ -277,11 +278,11 @@
                             <constraint firstItem="7lw-NB-hai" firstAttribute="leading" secondItem="8Wn-fT-vUH" secondAttribute="leading" id="mwA-TQ-Fuz"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Goals" id="5TN-yp-VWu"/>
+                    <tabBarItem key="tabBarItem" title="Goals" image="flame" selectedImage="flame" id="5TN-yp-VWu"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Az-6b-hN4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="211.59420289855075" y="284.51086956521743"/>
+            <point key="canvasLocation" x="243" y="497"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="S7b-rL-EN5">
@@ -407,6 +408,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="flame" width="40" height="40"/>
         <image name="home" width="40" height="40"/>
         <image name="ios7-calendar" width="40" height="40"/>
     </resources>
